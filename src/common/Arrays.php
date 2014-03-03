@@ -1,9 +1,6 @@
 <?php
 namespace Phpingguo\ApricotLib\Common;
 
-use Phpingguo\ApricotLib\Type\Int\UnsignedInt;
-use Phpingguo\ApricotLib\Type\String\String as TString;
-
 /**
  * 配列操作を拡張するためのクラスです。
  * 
@@ -44,9 +41,9 @@ final class Arrays
     /**
      * 入力配列のサイズが指定した上限値及び下限値の範囲内であるかどうかを調べます。
      * 
-     * @param Array $list                         上限及び下限のチェックを行う配列
-     * @param UnsignedInt $upper_limit            許容する上限のサイズを表す値
-     * @param UnsignedInt $lower_limit [初期値=0] 許容する下限のサイズを表す値
+     * @param Array $list                 上限及び下限のチェックを行う配列
+     * @param Int $upper_limit            許容する上限のサイズを表す値
+     * @param Int $lower_limit [初期値=0] 許容する下限のサイズを表す値
      * 
      * @throws \InvalidArgumentException 上限値または下限値が正の整数ではなかった場合
      * 
@@ -54,8 +51,7 @@ final class Arrays
      */
     public static function checkSize(array $list, $upper_limit, $lower_limit = 0)
     {
-        if (UnsignedInt::getInstance()->isValue($upper_limit) === false ||
-            UnsignedInt::getInstance()->isValue($lower_limit) === false) {
+        if (General::isValidUInt($upper_limit) === false || General::isValidUInt($lower_limit) === false) {
             throw new \InvalidArgumentException('$upper_limit and $lower_list accepts unsigned integer.');
         }
         
@@ -73,7 +69,7 @@ final class Arrays
      */
     public static function isValidKey($value)
     {
-        return (UnsignedInt::getInstance()->isValue($value) || TString::getInstance()->isValid($value));
+        return (General::isValidUInt($value) || String::isValid($value));
     }
     
     /**
