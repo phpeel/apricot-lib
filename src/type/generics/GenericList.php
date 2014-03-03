@@ -3,8 +3,9 @@ namespace Phpingguo\ApricotLib\Type\Generics;
 
 use Phpingguo\ApricotLib\Common\Arrays;
 use Phpingguo\ApricotLib\Common\String;
+use Phpingguo\ApricotLib\Enums\LibEnumName;
+use Phpingguo\ApricotLib\Enums\Variable;
 use Phpingguo\ApricotLib\Type\Enum\EnumClassGenerator as EnumClassGen;
-use Phpingguo\ApricotLib\Type\Enum\Variable;
 use Phpingguo\ApricotLib\Type\IScalarValue;
 
 /**
@@ -34,7 +35,7 @@ final class GenericList implements \ArrayAccess, \Iterator, \Countable
      */
     public function __construct($type_name, array $collection = [])
     {
-        list($obj_variable, $obj_value) = EnumClassGen::done('Phpingguo\ApricotLib\Type\Enum\Variable', $type_name);
+        list($obj_variable, $obj_value) = EnumClassGen::done(LibEnumName::VARIABLE, $type_name);
         
         $this->setListTypeName($obj_variable);
         $this->setListTypeObject($obj_value);
