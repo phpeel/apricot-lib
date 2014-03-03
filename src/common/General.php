@@ -20,4 +20,16 @@ final class General
     {
         return ($value instanceof \Closure) ? $value() : $value;
     }
+
+    /**
+     * 入力値が符号なし整数型の値であるかどうかを調べます。
+     * 
+     * @param mixed $value 調べる入力値
+     * 
+     * @return Boolean 符号なし整数型である場合は true を、それ以外の場合は false。
+     */
+    public static function isValidUInt($value)
+    {
+        return (is_int($value) && $value >= 0);
+    }
 }
