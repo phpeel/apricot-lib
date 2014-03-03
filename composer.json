@@ -1,0 +1,30 @@
+{
+    "name": "phpingguo/apricot-lib",
+    "description": "The Phpingguo PHP framework's utility common libraries.",
+    "license": "MIT",
+    "keywords": [
+        "Phpingguo lib",
+        "Phpingguo library",
+        "Phpingguo common library"
+    ],
+    "homepage": "https://github.com/phpingguo/apricot-lib",
+    "authors": [
+        {
+            "name" : "Apricot Library Contributors",
+            "homepage": "https://github.com/phpingguo/apricot-lib/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "phpingguo/citron-di": "dev-develop"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "squizlabs/php_codesniffer": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Phpingguo\\ApricotLib\\": "src/"
+        }
+    }
+}
