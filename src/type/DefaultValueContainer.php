@@ -87,7 +87,7 @@ final class DefaultValueContainer
         $dir   = 'config';
         $file  = 'default_values.yml';
         $path  = $base . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $file;
-        $value = (new Parser())->parse(file_get_contents($path));
+        $value = is_file($path) ? (new Parser())->parse(file_get_contents($path)) : null;
 
         return is_array($value) ? $value : null;
     }
