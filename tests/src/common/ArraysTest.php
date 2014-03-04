@@ -135,6 +135,45 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($removed ? null : $item, Arrays::getValue($list, $key ?: 0));
     }
     
+    public function providerAddEach()
+    {
+        return [
+            [ [ 'a', 'b', 'c' ], true, function() {
+                return true;
+            }, [ 'd', 'e', 'f' ], true, [ 'a', 'b', 'c', 'd', 'e', 'f' ] ],
+            [ [ 'a', 'b', 'c' ], false, function() {
+                return true;
+            }, [ 'd', 'e', 'f' ], false, [ 'a', 'b', 'c' ] ],
+            [ [ 'a', 'b', 'c' ], true, function() {
+                return true;
+            }, '', false, [ 'a', 'b', 'c' ] ],
+            [ [ 'a', 'b', 'c' ], true, function() {
+                return true;
+            }, 0, false, [ 'a', 'b', 'c' ] ],
+            [ [ 'a', 'b', 'c' ], true, function() {
+                return true;
+            }, null, false, [ 'a', 'b', 'c' ] ],
+            [ [ 'a', 'b', 'c' ], true, function() {
+                return true;
+            }, true, false, [ 'a', 'b', 'c' ] ],
+            [ [ 'a', 'b', 'c' ], true, function() {
+                return true;
+            }, false, false, [ 'a', 'b', 'c' ] ],
+            [ [ 'a', 'b', 'c' ], true, function() {
+                return true;
+            }, [], false, [ 'a', 'b', 'c' ] ],
+        ];
+    }
+    
+    /**
+     * @dataProvider providerAddEach
+     */
+    public function testAddEach($list, $loop, $add, $new, $expected, $after)
+    {
+        $this->assertSame($expected, Arrays::addEach($loop, $add, $list, $new));
+        $this->assertSame($after, $list);
+    }
+    
     public function providerRemoveEach()
     {
         return [
