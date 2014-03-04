@@ -125,6 +125,31 @@ final class Arrays
     }
     
     /**
+     * 条件を満たす場合に入力配列に対して条件に一致する複数の項目を追加します。
+     * 
+     * @param Boolean $loop_conditions 再帰追加処理実行を満たすための条件
+     * @param Callable $add_conditions 項目追加を満たすための条件
+     * @param Array $list              項目を追加する配列
+     * @param Array $add_list          追加する項目の配列
+     * 
+     * @return Boolean 入力配列へ一つ以上新しい項目を追加できた場合は true。それ以外の場合は false。
+     */
+    public static function addEach($loop_conditions, callable $add_conditions, array &$list, $add_list)
+    {
+        if ($loop_conditions !== true || static::isValid($add_list) === false) {
+            return false;
+        }
+        
+        $result = false;
+        
+        foreach ($add_list as $key => $value) {
+            $result |= static::addWhen($add_conditions($value, $key), $list, $value);
+        }
+        
+        return (bool)$result;
+    }
+    
+    /**
      * 条件を満たす場合に入力配列から指定したキーを持つ項目を削除します。
      * 
      * @param Boolean $conditions 削除実行を満たすための条件
