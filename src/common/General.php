@@ -22,14 +22,23 @@ final class General
     }
 
     /**
-     * 入力値が符号なし整数型の値であるかどうかを調べます。
+     * 一つ以上の入力値が全て符号なし整数型の値であるかどうかを調べます。
+     * このメソッドは、Type\Int\UnsignedIntクラスと異なり、数値文字列は文字列として扱います。
      * 
-     * @param mixed $value 調べる入力値
+     * @param mixed $values 一つ以上の調べる入力値
      * 
-     * @return Boolean 符号なし整数型である場合は true を、それ以外の場合は false。
+     * @return Boolean 全ての入力値が符号なし整数型である場合は true。それ以外の場合は false。
      */
-    public static function isValidUInt($value)
+    public static function isValidUInt($values)
     {
-        return (is_int($value) && $value >= 0);
+        $values = func_get_args();
+        
+        foreach ($values as $value) {
+            if (false === (is_int($value) && $value >= 0)) {
+                return false;
+            }
+        }
+        
+        return (func_num_args() > 0);
     }
 }

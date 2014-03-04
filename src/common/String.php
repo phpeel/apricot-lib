@@ -12,13 +12,18 @@ final class String
     /**
      * 入力文字列が有効な文字列であるかどうかを調べます。
      * 
-     * @param mixed $value 有効であるかどうかを調べる文字列
+     * @param mixed $value                      有効であるかどうかを調べる文字列
+     * @param Boolean $is_strict [初期値=false] 数値文字列を文字列として扱わないかどうか
      * 
      * @return Boolean 有効な文字列の場合は true。それ以外の場合は false。
      */
-    public static function isValid($value)
+    public static function isValid($value, $is_strict = false)
     {
-        return (is_string($value) && $value !== '');
+        if ($is_strict === true) {
+            return (is_numeric($value) === false && static::isValid($value));
+        } else {
+            return (is_string($value) && $value !== '');
+        }
     }
     
     /**
@@ -56,8 +61,8 @@ final class String
      */
     public static function removeNamespace($class_name)
     {
-        if (static::isValid($class_name) && class_exists($class_name, false)) {
-            return trim(strrchr($class_name, '\\'), '\\');
+        if (static::isValid($class_name, true)) {
+            return (false !== ($pos = strrpos($class_name, '\\'))) ? substr($class_name, $pos + 1) : $class_name;
         }
         
         return '';
