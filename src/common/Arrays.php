@@ -51,7 +51,7 @@ final class Arrays
      */
     public static function checkSize(array $list, $upper_limit, $lower_limit = 0)
     {
-        if (General::isValidUInt($upper_limit) === false || General::isValidUInt($lower_limit) === false) {
+        if (General::isValidUInt($upper_limit, $lower_limit) === false) {
             throw new \InvalidArgumentException('$upper_limit and $lower_list accepts unsigned integer.');
         }
         
@@ -252,6 +252,8 @@ final class Arrays
      */
     private static function getParsedArray($value)
     {
-        return is_array($value) ? General::getParsedValue($value) : null;
+        $parsed = General::getParsedValue($value);
+        
+        return is_array($parsed) ? $parsed : null;
     }
 }
