@@ -179,22 +179,23 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
         return [
             [ [ 'a', 'b', 'c' ], true, function ($v) {
                 return ($v === 'b');
-            }, true ],
+            }, true, [ 0 => 'a', 2 => 'c' ] ],
             [ [ 'a', 'b', 'c' ], true, function ($v) {
                 return ($v === 'd');
-            }, false ],
+            }, false, [ 'a', 'b', 'c' ] ],
             [ [ 'a', 'b', 'c' ], false, function () {
                 return true;
-            }, false ],
+            }, false, [ 'a', 'b', 'c' ] ],
         ];
     }
 
     /**
      * @dataProvider providerRemoveEach
      */
-    public function testRemoveEach($list, $loop, $remove, $expected)
+    public function testRemoveEach($list, $loop, $remove, $expected, $after)
     {
         $this->assertSame($expected, Arrays::removeEach($loop, $remove, $list));
+        $this->assertSame($after, $list);
     }
     
     public function providerCopyWhen()
