@@ -25,7 +25,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Phpingguo\\ApricotLib\\": "src/"
+            "Phpingguo\\ApricotLib\\": "src/",
+            "Phpingguo\\ApricotLib\\Test\\": "tests/src/"
         }
     }
 }
