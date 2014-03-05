@@ -116,8 +116,7 @@ final class Arrays
         $result = $default;
         $keys   = explode('=>', $key);
         
-        foreach ($keys as $key_value)
-        {
+        foreach ($keys as $key_value) {
             $temp_key = trim($key_value);
             
             if (static::isExistKey($temp, $temp_key) === false) {
