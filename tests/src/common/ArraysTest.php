@@ -135,6 +135,29 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($removed ? null : $item, Arrays::getValue($list, $key ?: 0));
     }
     
+    public function providerFindValue()
+    {
+        return [
+            [ [ 'name' => 'hoge hoge' ], 'name', null, 'hoge hoge' ],
+            [ [ 1 => [ 'name' => 'hoge hoge' ] ], 1, null, [ 'name' => 'hoge hoge' ] ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ 1, 2, 3, 'name' ], null, 'hoge hoge' ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ 1, 2 ], null, [ 3 => [ 'name' => 'hoge hoge' ] ] ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ 1, 2, 3, 'age' ], 'NaN', 'NaN' ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ 1, 2, 4 ], 'NaN', 'NaN' ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ 1, 2, 3, null ], 'NaN', 'NaN' ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ 1, null, 3 ], 'NaN', 'NaN' ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ false, null, 3 ], 'NaN', 'NaN' ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerFindValue
+     */
+    public function testFindValue($list, $find, $default, $expected)
+    {
+        $this->assertSame($expected, Arrays::findValue($list, $find, $default));
+    }
+    
     public function providerAddEach()
     {
         return [
