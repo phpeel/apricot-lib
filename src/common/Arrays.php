@@ -92,11 +92,54 @@ final class Arrays
      * @param String|Integer $key          値を取得するキーの名前
      * @param mixed $default [初期値=null] 値が取得できなかった場合に使用するデフォルト値
      * 
-     * @return mixed 入力配列から指定したキーに該当する値
+     * @return mixed 指定したキーの値が存在する場合はその値。それ以外は引数 $default の値。
      */
     public static function getValue(array $list, $key, $default = null)
     {
         return static::isExistKey($list, $key) ? $list[$key] : $default;
+    }
+
+    /**
+     * 入力配列から指定したキーに該当する値を検索してその値を取得します。
+     * 
+     * @param Array $list                               キーを検索する配列
+     * @param String|Integer|Array(String|Integer) $key 検索するキー、またはそれらから成る配列。<br>
+     * 連想配列にアクセスする場合は、配列を使用する。<br>
+     * (例) $list = [ 1 => [ 2 => 'name' => 'abc' ] ] の場合は、findValue($list, [1, 2, 'name']);
+     * @param mixed $default                            見つからなかった場合に使用する値
+     * 
+     * @return mixed 検索したキーの値が存在する場合はその値。それ以外は引数 $default の値。
+     */
+    public static function findValue(array $list, $key, $default = null)
+    {
+        if (is_array($key)) {
+            list($find_list, $find_keys) = static::getFindValueParam($list, $key);
+            
+            return static::findValue($find_list, $find_keys, $default);
+        }
+        
+        return static::getValue($list, $key, $default);
+    }
+    
+    /**
+     * 入力配列の全ての要素に対してユーザー関数を適用します。
+     * 
+     * @param Array $list                          ユーザー関数を適用する入力配列
+     * @param Callable(value, key, result) $walker 配列の要素に適用するユーザー関数。
+     * 第一引数は入力配列の値、第二引数はキー、第三引数は前回のユーザー関数の戻り値
+     * @param Boolean $force_result [初期値=null]  指定値を戻り値として強制的に返すかどうか
+     * 
+     * @return Boolean ユーザー関数を適用した戻り値。引数 $force_result に値を指定している場合はその値。
+     */
+    public static function eachWalk(array &$list, callable $walker, $force_result = null)
+    {
+        $result = false;
+        
+        foreach ($list as $key => $value) {
+            $result = $walker($value, $key, $result);
+        }
+        
+        return is_bool($force_result) ? $force_result : $result;
     }
     
     /**
@@ -140,13 +183,9 @@ final class Arrays
             return false;
         }
         
-        $result = false;
-        
-        foreach ($add_list as $key => $value) {
-            $result |= static::addWhen($add_conditions($value, $key), $list, $value);
-        }
-        
-        return (bool)$result;
+        return static::eachWalk($add_list, function ($value, $key, $result) use (&$list, $add_conditions) {
+            return (bool)($result | static::addWhen($add_conditions($value, $key), $list, $value));
+        });
     }
     
     /**
@@ -184,13 +223,9 @@ final class Arrays
             return false;
         }
         
-        $result = false;
-        
-        foreach ($list as $key => $value) {
-            $result |= static::removeWhen($remove_conditions($value, $key), $list, $key);
-        }
-        
-        return (bool)$result;
+        return static::eachWalk($list, function ($value, $key, $result) use (&$list, $remove_conditions) {
+            return (bool)($result | static::removeWhen($remove_conditions($value, $key), $list, $key));
+        });
     }
     
     /**
@@ -232,26 +267,26 @@ final class Arrays
             return false;
         }
         
-        foreach ($marge_list as $key => $value) {
-            static::partialMerge($target, $key, $value);
-        }
-        
-        return true;
+        return static::eachWalk($marge_list, function ($value, $key, $result) use (&$target) {
+            return (bool)($result | static::partialMerge($target, $key, $value));
+        });
     }
     
     /**
      * 入力配列の特定のキーが持つ既存の値に指定した値を統合します。
      * 
-     * @param Array $list         値を統合する配列
-     * @param Integer|String $key 値を統合するキー
+     * @param Array $list         統合先となる入力配列
+     * @param Integer|String $key 統合対象となるキー
      * @param mixed $value        統合する値
+     * 
+     * @return Boolean 統合に成功した場合は true。それ以外の場合は false。
      */
     public static function partialMerge(array &$list, $key, $value)
     {
-        if (isset($list[$key]) && is_array($list[$key]) && is_array($value)) {
-            static::mergeWhen(true, $list[$key], $value);
+        if (static::isMergeable($list, $key, $value)) {
+            return static::mergeWhen(true, $list[$key], $value);
         } else {
-            static::addWhen(true, $list, $value, $key);
+            return static::addWhen(true, $list, $value, $key);
         }
     }
     
@@ -280,5 +315,37 @@ final class Arrays
         $parsed = General::getParsedValue($value);
         
         return is_array($parsed) ? $parsed : null;
+    }
+
+    /**
+     * findValueメソッドの実行時に内部で必要なパラメータ値の配列を取得します。
+     * 
+     * @param Array $list                キーを検索する配列
+     * @param Array(String|Integer) $key 検索するキーから成る配列
+     * 
+     * @return Array(Array, Array|String|Integer) findValueメソッドの実行時に内部で必要なパラメータ値の配列
+     */
+    private static function getFindValueParam(array $list, $key)
+    {
+        $first_key  = array_shift($key);
+        $conditions = ((count($key) > 0) && isset($list[$first_key]));
+        $find_keys  = $conditions ? $key : $first_key;
+        $find_list  = $conditions ? $list[$first_key] : $list;
+        
+        return [ $find_list, $find_keys ];
+    }
+
+    /**
+     * 入力配列の対象のキーの値に指定した値が統合可能かどうかを判定します。
+     * 
+     * @param Array $list         統合先となる入力配列
+     * @param Integer|String $key 統合対象となるキー
+     * @param mixed $value        統合する値
+     * 
+     * @return Boolean 対象のキーへ統合が可能な場合は true。それ以外の場合は false。
+     */
+    private static function isMergeable(array $list, $key, $value)
+    {
+        return (isset($list[$key]) && is_array($list[$key]) && is_array($value));
     }
 }
