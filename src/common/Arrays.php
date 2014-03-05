@@ -1,6 +1,8 @@
 <?php
 namespace Phpingguo\ApricotLib\Common;
 
+use Phpingguo\ApricotLib\Enums\Charset;
+
 /**
  * 配列操作を拡張するためのクラスです。
  * 
@@ -117,7 +119,7 @@ final class Arrays
         $keys   = explode('=>', $key);
         
         foreach ($keys as $key_value) {
-            $temp_key = trim($key_value);
+            $temp_key = trim(mb_convert_kana($key_value, 's', Charset::UTF8));
             
             if (static::isExistKey($temp, $temp_key) === false) {
                 $result = $default;
