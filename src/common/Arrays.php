@@ -100,6 +100,27 @@ final class Arrays
     }
     
     /**
+     * 入力配列の全ての要素に対してユーザー関数を適用します。
+     * 
+     * @param Array $list                          ユーザー関数を適用する入力配列
+     * @param Callable(value, key, result) $walker 配列の要素に適用するユーザー関数。
+     * 第一引数は入力配列の値、第二引数はキー、第三引数は前回のユーザー関数の戻り値
+     * @param Boolean $force_result [初期値=null]  指定値を戻り値として強制的に返すかどうか
+     * 
+     * @return Boolean ユーザー関数を適用した戻り値。引数 $force_result に値を指定している場合はその値。
+     */
+    public static function eachWalk(array &$list, callable $walker, $force_result = null)
+    {
+        $result = false;
+        
+        foreach ($list as $key => $value) {
+            $result = $walker($value, $key, $result);
+        }
+        
+        return is_bool($force_result) ? $force_result : $result;
+    }
+    
+    /**
      * 条件を満たす場合に入力配列へ新しく項目を追加します。
      * 
      * @param Boolean $conditions               追加実行を満たすための条件
@@ -140,13 +161,9 @@ final class Arrays
             return false;
         }
         
-        $result = false;
-        
-        foreach ($add_list as $key => $value) {
-            $result |= static::addWhen($add_conditions($value, $key), $list, $value);
-        }
-        
-        return (bool)$result;
+        return static::eachWalk($add_list, function ($value, $key, $result) use (&$list, $add_conditions) {
+            return (bool)($result | static::addWhen($add_conditions($value, $key), $list, $value));
+        });
     }
     
     /**
@@ -184,13 +201,9 @@ final class Arrays
             return false;
         }
         
-        $result = false;
-        
-        foreach ($list as $key => $value) {
-            $result |= static::removeWhen($remove_conditions($value, $key), $list, $key);
-        }
-        
-        return (bool)$result;
+        return static::eachWalk($list, function ($value, $key, $result) use (&$list, $remove_conditions) {
+            return (bool)($result | static::removeWhen($remove_conditions($value, $key), $list, $key));
+        });
     }
     
     /**
@@ -232,26 +245,26 @@ final class Arrays
             return false;
         }
         
-        foreach ($marge_list as $key => $value) {
-            static::partialMerge($target, $key, $value);
-        }
-        
-        return true;
+        return static::eachWalk($marge_list, function ($value, $key, $result) use (&$target) {
+            return (bool)($result | static::partialMerge($target, $key, $value));
+        });
     }
     
     /**
      * 入力配列の特定のキーが持つ既存の値に指定した値を統合します。
      * 
-     * @param Array $list         値を統合する配列
-     * @param Integer|String $key 値を統合するキー
+     * @param Array $list         統合先となる入力配列
+     * @param Integer|String $key 統合対象となるキー
      * @param mixed $value        統合する値
+     * 
+     * @return Boolean 統合に成功した場合は true。それ以外の場合は false。
      */
     public static function partialMerge(array &$list, $key, $value)
     {
-        if (isset($list[$key]) && is_array($list[$key]) && is_array($value)) {
-            static::mergeWhen(true, $list[$key], $value);
+        if (static::isMergeable($list, $key, $value)) {
+            return static::mergeWhen(true, $list[$key], $value);
         } else {
-            static::addWhen(true, $list, $value, $key);
+            return static::addWhen(true, $list, $value, $key);
         }
     }
     
@@ -280,5 +293,19 @@ final class Arrays
         $parsed = General::getParsedValue($value);
         
         return is_array($parsed) ? $parsed : null;
+    }
+
+    /**
+     * 入力配列の対象のキーの値に指定した値が統合可能かどうかを判定します。
+     * 
+     * @param Array $list         統合先となる入力配列
+     * @param Integer|String $key 統合対象となるキー
+     * @param mixed $value        統合する値
+     * 
+     * @return Boolean 対象のキーへ統合が可能な場合は true。それ以外の場合は false。
+     */
+    private static function isMergeable(array $list, $key, $value)
+    {
+        return (isset($list[$key]) && is_array($list[$key]) && is_array($value));
     }
 }
