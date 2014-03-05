@@ -118,11 +118,16 @@ final class Arrays
         
         foreach ($keys as $key_value)
         {
-            if ($default === ($result = static::getValue($temp, trim($key_value), $default))) {
+            $temp_key = trim($key_value);
+            
+            if (static::isExistKey($temp, $temp_key) === false) {
+                $result = $default;
+                
                 break;
             }
             
-            $temp = $result;
+            $result = static::getValue($temp, $temp_key, $default);
+            $temp   = $result;
         }
         
         return $result;
