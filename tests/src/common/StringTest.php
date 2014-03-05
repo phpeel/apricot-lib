@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Src\Common;
+namespace Phpingguo\ApricotLib\Tests\Common;
 
 use Phpingguo\ApricotLib\Common\String;
 use Phpingguo\ApricotLib\Enums\LibEnumName;

@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\Tests\Phpingguo\Exts\Lib;
+namespace Phpingguo\ApricotLib\Tests\Type\Enum;
 
 use Phpingguo\ApricotLib\Enums\Variable;
 use Phpingguo\ApricotLib\Type\Enum\EnumClassGenerator;

@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Src\Type\String;
+namespace Phpingguo\ApricotLib\Tests\Type\String;
 
 use Phpingguo\ApricotLib\Type\String\String;
 

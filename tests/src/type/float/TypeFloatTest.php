@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Src\Type\Float;
+namespace Phpingguo\ApricotLib\Tests\Type\Float;
 
 use Phpingguo\ApricotLib\Type\Float\Float;
 

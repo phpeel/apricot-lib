@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Src\Type\Generics;
+namespace Phpingguo\ApricotLib\Tests\Type\Generics;
 
 use Phpingguo\ApricotLib\Enums\Variable;
 use Phpingguo\ApricotLib\Type\Generics\GenericList;
