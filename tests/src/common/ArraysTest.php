@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Src\Common;
+namespace Phpingguo\ApricotLib\Tests\Common;
 
 use Phpingguo\ApricotLib\Common\Arrays;
 

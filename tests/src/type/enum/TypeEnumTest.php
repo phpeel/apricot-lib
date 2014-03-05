@@ -1,7 +1,6 @@
 <?php
-namespace Phpingguo\Tests\Phpingguo\Exts\Lib\Type;
+namespace Phpingguo\ApricotLib\Tests\Type\Enum;
 
-use Phpingguo\ApricotLib\Enums\Validator;
 use Phpingguo\ApricotLib\Enums\Variable;
 use Phpingguo\ApricotLib\Enums\LibEnumName;
 

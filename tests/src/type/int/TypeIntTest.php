@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Src\Type\Int;
+namespace Phpingguo\ApricotLib\Tests\Type\Int;
 
 use Phpingguo\ApricotLib\Type\Int\Integer;
 
