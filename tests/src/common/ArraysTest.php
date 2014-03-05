@@ -140,13 +140,13 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
         return [
             [ [ 'name' => 'hoge hoge' ], 'name', null, 'hoge hoge' ],
             [ [ 1 => [ 'name' => 'hoge hoge' ] ], 1, null, [ 'name' => 'hoge hoge' ] ],
-            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ 1, 2, 3, 'name' ], null, 'hoge hoge' ],
-            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ 1, 2 ], null, [ 3 => [ 'name' => 'hoge hoge' ] ] ],
-            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ 1, 2, 3, 'age' ], 'NaN', 'NaN' ],
-            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ 1, 2, 4 ], 'NaN', 'NaN' ],
-            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ 1, 2, 3, null ], 'NaN', 'NaN' ],
-            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ 1, null, 3 ], 'NaN', 'NaN' ],
-            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], [ false, null, 3 ], 'NaN', 'NaN' ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], '1 => 2 => 3 => name', null, 'hoge hoge' ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], '1 => 2', null, [ 3 => [ 'name' => 'hoge hoge' ] ] ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], '1 => 2 => 3 => age', 'NaN', 'NaN' ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], '1 => 2 => 4', 'NaN', 'NaN' ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], '1 => 2 => 3 => null', 'NaN', 'NaN' ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], '1 => null => 3', 'NaN', 'NaN' ],
+            [ [ 1 => [ 2 => [ 3 => [ 'name' => 'hoge hoge' ] ] ] ], 'false => null => 3', 'NaN', 'NaN' ],
         ];
     }
 

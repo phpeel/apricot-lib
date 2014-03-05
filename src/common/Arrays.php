@@ -80,9 +80,9 @@ final class Arrays
      * 
      * @return Boolean 入力配列に指定したキーの要素が存在する場合は true。それ以外の場合は false。
      */
-    public static function isExistKey(array $list, $key)
+    public static function isExistKey($list, $key)
     {
-        return static::isValidKey($key) && isset($list[$key]);
+        return (static::isValidKey($key) && is_array($list) && isset($list[$key]));
     }
     
     /**
@@ -94,7 +94,7 @@ final class Arrays
      * 
      * @return mixed 指定したキーの値が存在する場合はその値。それ以外は引数 $default の値。
      */
-    public static function getValue(array $list, $key, $default = null)
+    public static function getValue($list, $key, $default = null)
     {
         return static::isExistKey($list, $key) ? $list[$key] : $default;
     }
@@ -102,23 +102,30 @@ final class Arrays
     /**
      * 入力配列から指定したキーに該当する値を検索してその値を取得します。
      * 
-     * @param Array $list                               キーを検索する配列
-     * @param String|Integer|Array(String|Integer) $key 検索するキー、またはそれらから成る配列。<br>
+     * @param Array $list                  キーを検索する配列
+     * @param String|Integer $key          検索するキー、またはそれらから成る配列。<br>
      * 連想配列にアクセスする場合は、配列を使用する。<br>
-     * (例) $list = [ 1 => [ 2 => 'name' => 'abc' ] ] の場合は、findValue($list, [1, 2, 'name']);
-     * @param mixed $default                            見つからなかった場合に使用する値
+     * (例) $list = [ 1 => [ 2 => 'name' => 'abc' ] ] の場合は、findValue($list, '1 => 2 => name');
+     * @param mixed $default [初期値=null] 見つからなかった場合に使用する値
      * 
      * @return mixed 検索したキーの値が存在する場合はその値。それ以外は引数 $default の値。
      */
     public static function findValue(array $list, $key, $default = null)
     {
-        if (is_array($key)) {
-            list($find_list, $find_keys) = static::getFindValueParam($list, $key);
+        $temp   = $list;
+        $result = $default;
+        $keys   = explode('=>', $key);
+        
+        foreach ($keys as $key_value)
+        {
+            if ($default === ($result = static::getValue($temp, trim($key_value), $default))) {
+                break;
+            }
             
-            return static::findValue($find_list, $find_keys, $default);
+            $temp = $result;
         }
         
-        return static::getValue($list, $key, $default);
+        return $result;
     }
     
     /**
@@ -316,25 +323,7 @@ final class Arrays
         
         return is_array($parsed) ? $parsed : null;
     }
-
-    /**
-     * findValueメソッドの実行時に内部で必要なパラメータ値の配列を取得します。
-     * 
-     * @param Array $list                キーを検索する配列
-     * @param Array(String|Integer) $key 検索するキーから成る配列
-     * 
-     * @return Array(Array, Array|String|Integer) findValueメソッドの実行時に内部で必要なパラメータ値の配列
-     */
-    private static function getFindValueParam(array $list, $key)
-    {
-        $first_key  = array_shift($key);
-        $conditions = ((count($key) > 0) && isset($list[$first_key]));
-        $find_keys  = $conditions ? $key : $first_key;
-        $find_list  = $conditions ? $list[$first_key] : $list;
-        
-        return [ $find_list, $find_keys ];
-    }
-
+    
     /**
      * 入力配列の対象のキーの値に指定した値が統合可能かどうかを判定します。
      * 
