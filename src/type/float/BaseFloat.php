@@ -5,7 +5,6 @@ use Phpingguo\ApricotLib\Type\DefaultValueContainer;
 use Phpingguo\ApricotLib\Type\IScalarValue;
 use Phpingguo\ApricotLib\Type\TraitScalarValue;
 use Phpingguo\ApricotLib\Type\TraitSignedNumber;
-use Phpingguo\CitronDI\AuraDIWrapper;
 
 /**
  * フレームワークで使用できる浮動小数点数型を表すための基本となる抽象クラスです。
@@ -48,7 +47,7 @@ abstract class BaseFloat implements IScalarValue
     final public static function getInstance()
     {
         // 初期値設定の再ロードは行わない
-        return AuraDIWrapper::init(static::$service_name)->get(get_called_class());
+        return static::getDiContainer()->get(get_called_class());
     }
     
     // ---------------------------------------------------------------------------------------------

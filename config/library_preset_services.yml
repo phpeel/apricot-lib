@@ -1,0 +1,6 @@
+- 'Phpingguo\ApricotLib\Type\Int\Integer'
+- 'Phpingguo\ApricotLib\Type\Int\UnsignedInt'
+- 'Phpingguo\ApricotLib\Type\Float\Float'
+- 'Phpingguo\ApricotLib\Type\Float\UnsignedFloat'
+- 'Phpingguo\ApricotLib\Type\String\String'
+- 'Phpingguo\ApricotLib\Type\String\Text'

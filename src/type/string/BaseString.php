@@ -6,7 +6,6 @@ use Phpingguo\ApricotLib\Enums\Charset;
 use Phpingguo\ApricotLib\Type\DefaultValueContainer;
 use Phpingguo\ApricotLib\Type\IExtendScalarValue;
 use Phpingguo\ApricotLib\Type\TraitScalarValue;
-use Phpingguo\CitronDI\AuraDIWrapper;
 
 /**
  * フレームワークで使用できる文字列型を表すための基本となる抽象クラスです。
@@ -46,7 +45,7 @@ abstract class BaseString implements IExtendScalarValue
     final public static function getInstance()
     {
         // 初期値設定の再ロードは行わない
-        return AuraDIWrapper::init(static::$service_name)->get(get_called_class());
+        return static::getDiContainer()->get(get_called_class());
     }
     
     // ---------------------------------------------------------------------------------------------
