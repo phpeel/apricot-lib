@@ -82,4 +82,25 @@ final class String
     {
         return (isset($regex) && $not_expected !== preg_match($regex, $search));
     }
+
+    /**
+     * ディレクトリのファイルパスにサブディレクトリのファイル名を結合したものを取得します。
+     * 
+     * @param String $parent_path                 結合先のディレクトリのファイルパス
+     * @param String $sub_directory [初期値=null] 結合するサブディレクトリの名前
+     * 
+     * @return String サブディレクトリのファイル名を結合したディレクトリのファイルパス
+     */
+    public static function unionDirectoryPath($parent_path, $sub_directory = null)
+    {
+        if (static::isValid($sub_directory)) {
+            $full_path = realpath($parent_path . DIRECTORY_SEPARATOR . $sub_directory);
+            
+            if (is_dir($full_path)) {
+                return $full_path;
+            }
+        }
+        
+        return realpath($parent_path);
+    }
 }
