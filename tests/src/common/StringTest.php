@@ -3,6 +3,7 @@ namespace Phpingguo\ApricotLib\Tests\Common;
 
 use Phpingguo\ApricotLib\Common\String;
 use Phpingguo\ApricotLib\Enums\LibEnumName;
+use Phpingguo\ApricotLib\LibrarySupervisor;
 
 class StringTest extends \PHPUnit_Framework_TestCase
 {
@@ -98,5 +99,41 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function testIsNotRegexMatched($search, $regex, $not_expected, $result)
     {
         $this->assertSame($result, String::isNotRegexMatched($search, $regex, $not_expected));
+    }
+    
+    public function providerUnionDirectoryPath()
+    {
+        return [
+            [ 'tests' ],
+            [ 'hogehoge' ],
+            [ '' ],
+            [ null ],
+            [ true ],
+            [ false ],
+            [ 0 ],
+            [ 0.0 ],
+            [ 0.1 ],
+            [ '0' ],
+            [ '0.0' ],
+            [ '0.1' ],
+            [ [] ],
+            [ new \stdClass() ]
+        ];
+    }
+
+    /**
+     * @dataProvider providerUnionDirectoryPath
+     */
+    public function testUnionDirectoryPath($sub_directory)
+    {
+        $base_path = LibrarySupervisor::getBasePath();
+        $expected  = $base_path;
+        
+        if (String::isValid($sub_directory)) {
+            $full_path = realpath($base_path . DIRECTORY_SEPARATOR . $sub_directory);
+            $expected  = is_dir($full_path) ? $full_path : $base_path;
+        }
+        
+        $this->assertSame($expected, String::unionDirectoryPath($base_path, $sub_directory));
     }
 }
