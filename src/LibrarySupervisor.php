@@ -1,6 +1,8 @@
 <?php
 namespace Phpingguo\ApricotLib;
 
+use Phpingguo\ApricotLib\Common\String as CString;
+
 /**
  * ライブラリを統括するクラスです。
  * 
@@ -16,7 +18,7 @@ final class LibrarySupervisor
      */
     public static function getBasePath()
     {
-        return realpath(__DIR__) . DIRECTORY_SEPARATOR . '..';
+        return CString::unionDirectoryPath(__DIR__, '..');
     }
 
     /**
@@ -26,6 +28,6 @@ final class LibrarySupervisor
      */
     public static function getConfigPath()
     {
-        return static::getBasePath() . DIRECTORY_SEPARATOR . 'config';
+        return CString::unionDirectoryPath(static::getBasePath(), 'config');
     }
 }
