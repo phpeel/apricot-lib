@@ -1,0 +1,64 @@
+<?php
+namespace Phpingguo\ApricotLib\Common;
+
+/**
+ * 数字に関する操作を拡張するためのクラスです。
+ * 
+ * @final [継承禁止クラス]
+ * @author hiroki sugawara
+ */
+final class Number
+{
+    /**
+     * 一つ以上の入力値が全て符号あり整数型の値であるかどうかを調べます。
+     * このメソッドは、Type\Int\Integerクラスと異なり、数値文字列は文字列として扱います。
+     * 
+     * @param mixed $values 一つ以上の調べる入力値
+     * 
+     * @return Boolean 全ての入力値が符号あり整数型である場合は true。それ以外の場合は false。
+     */
+    public static function isValidInt($values)
+    {
+        return General::checkValueValid(func_get_args(), function ($value) {
+            return is_int($value);
+        });
+    }
+    
+    /**
+     * 一つ以上の入力値が全て符号なし整数型の値であるかどうかを調べます。
+     * このメソッドは、Type\Int\UnsignedIntクラスと異なり、数値文字列は文字列として扱います。
+     * 
+     * @param mixed $values 一つ以上の調べる入力値
+     * 
+     * @return Boolean 全ての入力値が符号なし整数型である場合は true。それ以外の場合は false。
+     */
+    public static function isValidUInt($values)
+    {
+        return General::checkValueValid(func_get_args(), function ($value) {
+            return (is_int($value) && $value >= 0);
+        });
+    }
+
+    /**
+     * 入力値が整数かつ指定した区間に含まれるかどうかを調べます。
+     *
+     * @param mixed $value                            調べる入力値
+     * @param Integer $min                            区間の最小値となる端点
+     * @param Integer $max                            区間の最大値となる端点
+     * @param Boolean $open_end_points [初期値=false] 区間が開区間(端点を区間に含めない)かどうか
+     * 
+     * @return Boolean 整数かつ区間に含まれる場合は true。それ以外の場合は false。
+     */
+    public static function isInInterval($value, $min, $max, $open_end_points = false)
+    {
+        if (static::isValidInt($value, $min, $max)) {
+            if ($open_end_points === true) {
+                return ($min < $value && $value < $max);
+            }
+            
+            return ($min <= $value && $value <= $max);
+        }
+        
+        return false;
+    }
+}

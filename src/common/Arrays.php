@@ -53,13 +53,11 @@ final class Arrays
      */
     public static function checkSize(array $list, $upper_limit, $lower_limit = 0)
     {
-        if (General::isValidUInt($upper_limit, $lower_limit) === false) {
+        if (Number::isValidUInt($upper_limit, $lower_limit) === false) {
             throw new \InvalidArgumentException('$upper_limit and $lower_list accepts unsigned integer.');
         }
         
-        $length = count($list);
-        
-        return ($lower_limit <= $length && $length <= $upper_limit);
+        return Number::isInInterval(count($list), $lower_limit, $upper_limit);
     }
     
     /**
@@ -71,7 +69,7 @@ final class Arrays
      */
     public static function isValidKey($value)
     {
-        return (General::isValidUInt($value) || String::isValid($value));
+        return (Number::isValidUInt($value) || String::isValid($value));
     }
     
     /**
