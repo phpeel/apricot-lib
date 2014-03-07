@@ -1,6 +1,8 @@
 <?php
 namespace Phpingguo\ApricotLib\Tests\Common;
 
+use Phpingguo\ApricotLib\Common\Number;
+
 class NumberTest extends \PHPUnit_Framework_TestCase
 {
     public function providerIsValidInt()
@@ -57,5 +59,45 @@ class NumberTest extends \PHPUnit_Framework_TestCase
             $expected,
             call_user_func_array('Phpingguo\ApricotLib\Common\Number::isValidUInt', $values)
         );
+    }
+    
+    public function providerIsInInterval()
+    {
+        return [
+            [ 0, 0, 0, false, true ],
+            [ 0, -5, 5, false, true ],
+            [ 5, -5, 5, false, true ],
+            [ -5, -5, 5, false, true ],
+            [ null, -5, 5, false, false ],
+            [ true, -5, 5, false, false ],
+            [ false, -5, 5, false, false ],
+            [ [], -5, 5, false, false ],
+            [ [ 'a' ], -5, 5, false, false ],
+            [ '', -5, 5, false, false ],
+            [ '0', -5, 5, false, false ],
+            [ 'a', -5, 5, false, false ],
+            [ new \stdClass(), -5, 5, false, false ],
+            [ 0, 0, 0, true, false ],
+            [ 0, -5, 5, true, true ],
+            [ 5, -5, 5, true, false ],
+            [ -5, -5, 5, true, false ],
+            [ null, -5, 5, true, false ],
+            [ true, -5, 5, true, false ],
+            [ false, -5, 5, true, false ],
+            [ [], -5, 5, true, false ],
+            [ [ 'a' ], -5, 5, true, false ],
+            [ '', -5, 5, true, false ],
+            [ '0', -5, 5, true, false ],
+            [ 'a', -5, 5, true, false ],
+            [ new \stdClass(), -5, 5, true, false ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerIsInInterval
+     */
+    public function testIsInInterval($value, $min, $max, $open_end_points, $expected)
+    {
+        $this->assertSame($expected, Number::isInInterval($value, $min, $max, $open_end_points));
     }
 }
