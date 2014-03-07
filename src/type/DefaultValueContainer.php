@@ -1,9 +1,9 @@
 <?php
 namespace Phpingguo\ApricotLib\Type;
 
+use Phpingguo\ApricotLib\Common\General;
 use Phpingguo\ApricotLib\Common\String as CString;
 use Phpingguo\ApricotLib\LibrarySupervisor;
-use Symfony\Component\Yaml\Parser;
 
 /**
  * スカラータイプクラスのデフォルト値を管理するクラスです。
@@ -84,8 +84,7 @@ final class DefaultValueContainer
      */
     private static function parseSettingFile()
     {
-        $path  = LibrarySupervisor::getConfigPath() . DIRECTORY_SEPARATOR . 'default_values.yml';
-        $value = is_file($path) ? (new Parser())->parse(file_get_contents($path)) : null;
+        $value = General::getParsedYamlFile(LibrarySupervisor::getConfigPath(), 'default_values');
 
         return is_array($value) ? $value : null;
     }
