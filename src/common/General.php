@@ -20,25 +20,23 @@ final class General
     {
         return ($value instanceof \Closure) ? $value() : $value;
     }
-
+    
     /**
-     * 一つ以上の入力値が全て符号なし整数型の値であるかどうかを調べます。
-     * このメソッドは、Type\Int\UnsignedIntクラスと異なり、数値文字列は文字列として扱います。
-     * 
-     * @param mixed $values 一つ以上の調べる入力値
-     * 
-     * @return Boolean 全ての入力値が符号なし整数型である場合は true。それ以外の場合は false。
+     * 入力変数の値が全て指定した条件を満たしているかどうかをチェックします。
+     *
+     * @param Array $values        入力変数の値の配列
+     * @param callable $conditions 入力変数の配列の要素の満たすべき条件
+     *
+     * @return Boolean 全ての入力値が指定した条件を満たしている場合は true。それ以外の場合は false。
      */
-    public static function isValidUInt($values)
+    public static function checkValueValid(array $values, callable $conditions)
     {
-        $values = func_get_args();
-        
         foreach ($values as $value) {
-            if (false === (is_int($value) && $value >= 0)) {
+            if (false === $conditions($value)) {
                 return false;
             }
         }
         
-        return (func_num_args() > 0);
+        return (empty($values) === false);
     }
 }
