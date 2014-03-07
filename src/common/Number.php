@@ -38,4 +38,27 @@ final class Number
             return (is_int($value) && $value >= 0);
         });
     }
+
+    /**
+     * 入力値が整数かつ指定した区間に含まれるかどうかを調べます。
+     *
+     * @param mixed $value                            調べる入力値
+     * @param Integer $min                            区間の最小値となる端点
+     * @param Integer $max                            区間の最大値となる端点
+     * @param Boolean $open_end_points [初期値=false] 区間が開区間(端点を区間に含めない)かどうか
+     * 
+     * @return Boolean 整数かつ区間に含まれる場合は true。それ以外の場合は false。
+     */
+    public static function isInInterval($value, $min, $max, $open_end_points = false)
+    {
+        if (static::isValidInt($value, $min, $max)) {
+            if ($open_end_points === true) {
+                return ($min < $value && $value < $max);
+            }
+            
+            return ($min <= $value && $value <= $max);
+        }
+        
+        return false;
+    }
 }
