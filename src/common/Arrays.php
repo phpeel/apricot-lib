@@ -57,9 +57,7 @@ final class Arrays
             throw new \InvalidArgumentException('$upper_limit and $lower_list accepts unsigned integer.');
         }
         
-        $length = count($list);
-        
-        return ($lower_limit <= $length && $length <= $upper_limit);
+        return Number::isInInterval(count($list), $lower_limit, $upper_limit);
     }
     
     /**
