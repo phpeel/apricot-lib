@@ -162,28 +162,28 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
     public function providerAddEach()
     {
         return [
-            [ [ 'a', 'b', 'c' ], true, function() {
+            [ [ 'a', 'b', 'c' ], true, function () {
                 return true;
             }, [ 'd', 'e', 'f' ], true, [ 'a', 'b', 'c', 'd', 'e', 'f' ] ],
-            [ [ 'a', 'b', 'c' ], false, function() {
+            [ [ 'a', 'b', 'c' ], false, function () {
                 return true;
             }, [ 'd', 'e', 'f' ], false, [ 'a', 'b', 'c' ] ],
-            [ [ 'a', 'b', 'c' ], true, function() {
+            [ [ 'a', 'b', 'c' ], true, function () {
                 return true;
             }, '', false, [ 'a', 'b', 'c' ] ],
-            [ [ 'a', 'b', 'c' ], true, function() {
+            [ [ 'a', 'b', 'c' ], true, function () {
                 return true;
             }, 0, false, [ 'a', 'b', 'c' ] ],
-            [ [ 'a', 'b', 'c' ], true, function() {
+            [ [ 'a', 'b', 'c' ], true, function () {
                 return true;
             }, null, false, [ 'a', 'b', 'c' ] ],
-            [ [ 'a', 'b', 'c' ], true, function() {
+            [ [ 'a', 'b', 'c' ], true, function () {
                 return true;
             }, true, false, [ 'a', 'b', 'c' ] ],
-            [ [ 'a', 'b', 'c' ], true, function() {
+            [ [ 'a', 'b', 'c' ], true, function () {
                 return true;
             }, false, false, [ 'a', 'b', 'c' ] ],
-            [ [ 'a', 'b', 'c' ], true, function() {
+            [ [ 'a', 'b', 'c' ], true, function () {
                 return true;
             }, [], false, [ 'a', 'b', 'c' ] ],
         ];
