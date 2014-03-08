@@ -194,7 +194,7 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddEach($list, $loop, $add, $new, $expected, $after)
     {
-        $this->assertSame($expected, Arrays::addEach($loop, $add, $list, $new));
+        $this->assertSame($expected, Arrays::addEach($loop, $list, $add, $new));
         $this->assertSame($after, $list);
     }
     
@@ -218,7 +218,7 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemoveEach($list, $loop, $remove, $expected, $after)
     {
-        $this->assertSame($expected, Arrays::removeEach($loop, $remove, $list));
+        $this->assertSame($expected, Arrays::removeEach($loop, $list, $remove));
         $this->assertSame($after, $list);
     }
     
