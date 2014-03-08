@@ -300,6 +300,22 @@ final class Arrays
             return static::addWhen(true, $list, $value, $key);
         }
     }
+
+    /**
+     * 入力配列の全ての要素にコールバックを使用してフィルタリングを行います。
+     * 
+     * @param Array $list                        フィルタリングの対象となる入力配列
+     * @param Callable $filter [初期値=null]     実行するフィルタリングとなるコールバック
+     * @param Boolean $is_reindex [初期値=false] フィルタリング後にインデックスを振り直すかどうか
+     *
+     * @return Array フィルタリングを行った状態の入力配列
+     */
+    public static function filter(array $list, callable $filter = null, $is_reindex = false)
+    {
+        $result = is_null($filter) ? array_filter($list) : array_filter($list, $filter);
+        
+        return ($is_reindex === true) ? array_values($result) : $result;
+    }
     
     /**
      * 入力配列の要素を全て削除します。
