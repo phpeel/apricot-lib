@@ -182,13 +182,13 @@ final class Arrays
      * 条件を満たす場合に入力配列に対して条件に一致する複数の項目を追加します。
      * 
      * @param Boolean $loop_conditions 再帰追加処理実行を満たすための条件
-     * @param Callable $add_conditions 項目追加を満たすための条件
      * @param Array $list              項目を追加する配列
+     * @param Callable $add_conditions 項目追加を満たすための条件
      * @param Array $add_list          追加する項目の配列
      * 
      * @return Boolean 入力配列へ一つ以上新しい項目を追加できた場合は true。それ以外の場合は false。
      */
-    public static function addEach($loop_conditions, callable $add_conditions, array &$list, $add_list)
+    public static function addEach($loop_conditions, array &$list, callable $add_conditions, $add_list)
     {
         if ($loop_conditions !== true || static::isValid($add_list) === false) {
             return false;
@@ -226,12 +226,12 @@ final class Arrays
      * 条件を満たす場合に入力配列に対して再帰的に条件に一致する項目を削除します。
      * 
      * @param Boolean $loop_conditions    再帰削除処理実行を満たすための条件
-     * @param Callable $remove_conditions 項目削除の実行を満たすための条件
      * @param Array $list                 項目を削除する配列
+     * @param Callable $remove_conditions 項目削除の実行を満たすための条件
      * 
      * @return Boolean 入力配列から条件を満たす項目を一つでも削除できた場合は true。それ以外の場合は false。
      */
-    public static function removeEach($loop_conditions, callable $remove_conditions, array &$list)
+    public static function removeEach($loop_conditions, array &$list, callable $remove_conditions)
     {
         if ($loop_conditions !== true) {
             return false;
