@@ -274,6 +274,30 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($after, $target);
     }
     
+    public function providerFiltering()
+    {
+        return [
+            [ [ 'a', 'b', 'c', 'd' ], function ($value) {
+                return ($value !== 'c');
+            }, false, [ 0 => 'a', 1 => 'b', 3 => 'd' ] ],
+            [ [ 'a', 'b', 'c', 'd' ], function ($value) {
+                return ($value !== 'c');
+            }, true, [ 0 => 'a', 1 => 'b', 2 => 'd' ] ],
+            [ [ 'a', '', 'c', 'd' ], 'trim', false, [ 0 => 'a', 2 => 'c', 3 => 'd' ] ],
+            [ [ 'a', '', 'c', 'd' ], 'trim', true, [ 0 => 'a', 1 => 'c', 2 => 'd' ] ],
+            [ [ 0, 1, false, 100, null, true ], null, false, [ 1 => 1, 3 => 100, 5 => true ] ],
+            [ [ 0, 1, false, 100, null, true ], null, true, [ 0 => 1, 1 => 100, 2 => true ] ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerFiltering
+     */
+    public function testFiltering($list, $filter, $is_reindex, $expected)
+    {
+        $this->assertSame($expected, Arrays::filter($list, $filter, $is_reindex));
+    }
+    
     public function providerClear()
     {
         return [
