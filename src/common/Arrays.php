@@ -194,9 +194,12 @@ final class Arrays
             return false;
         }
         
-        return static::eachWalk($add_list, function ($value, $key, $result) use (&$list, $add_conditions) {
-            return (bool)($result | static::addWhen($add_conditions($value, $key), $list, $value));
-        });
+        return static::eachWalk(
+            $add_list,
+            function ($value, $key, $result) use (&$list, $add_conditions) {
+                return (bool)($result | static::addWhen($add_conditions($value, $key), $list, $value));
+            }
+        );
     }
     
     /**
@@ -234,9 +237,12 @@ final class Arrays
             return false;
         }
         
-        return static::eachWalk($list, function ($value, $key, $result) use (&$list, $remove_conditions) {
-            return (bool)($result | static::removeWhen($remove_conditions($value, $key), $list, $key));
-        });
+        return static::eachWalk(
+            $list,
+            function ($value, $key, $result) use (&$list, $remove_conditions) {
+                return (bool)($result | static::removeWhen($remove_conditions($value, $key), $list, $key));
+            }
+        );
     }
     
     /**
@@ -278,9 +284,12 @@ final class Arrays
             return false;
         }
         
-        return static::eachWalk($marge_list, function ($value, $key, $result) use (&$target) {
-            return (bool)($result | static::partialMerge($target, $key, $value));
-        });
+        return static::eachWalk(
+            $marge_list,
+            function ($value, $key, $result) use (&$target) {
+                return (bool)($result | static::partialMerge($target, $key, $value));
+            }
+        );
     }
     
     /**
