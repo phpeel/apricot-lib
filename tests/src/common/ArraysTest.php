@@ -161,31 +161,46 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
     
     public function providerAddEach()
     {
+        $closure = function () {
+            return true;
+        };
+        
         return [
-            [ [ 'a', 'b', 'c' ], true, function () {
-                return true;
-            }, [ 'd', 'e', 'f' ], true, [ 'a', 'b', 'c', 'd', 'e', 'f' ] ],
-            [ [ 'a', 'b', 'c' ], false, function () {
-                return true;
-            }, [ 'd', 'e', 'f' ], false, [ 'a', 'b', 'c' ] ],
-            [ [ 'a', 'b', 'c' ], true, function () {
-                return true;
-            }, '', false, [ 'a', 'b', 'c' ] ],
-            [ [ 'a', 'b', 'c' ], true, function () {
-                return true;
-            }, 0, false, [ 'a', 'b', 'c' ] ],
-            [ [ 'a', 'b', 'c' ], true, function () {
-                return true;
-            }, null, false, [ 'a', 'b', 'c' ] ],
-            [ [ 'a', 'b', 'c' ], true, function () {
-                return true;
-            }, true, false, [ 'a', 'b', 'c' ] ],
-            [ [ 'a', 'b', 'c' ], true, function () {
-                return true;
-            }, false, false, [ 'a', 'b', 'c' ] ],
-            [ [ 'a', 'b', 'c' ], true, function () {
-                return true;
-            }, [], false, [ 'a', 'b', 'c' ] ],
+            [
+                [ 'a', 'b', 'c' ], true, $closure,
+                [ 'd', 'e', 'f' ], true,
+                [ 'a', 'b', 'c', 'd', 'e', 'f' ]
+            ], [
+                [ 'a', 'b', 'c' ], true, $closure,
+                [ 'x' => 'd', 'y' => 'e', 'z' => 'f' ], true,
+                [ 'a', 'b', 'c', 'x' => 'd', 'y' => 'e', 'z' => 'f' ]
+            ], [
+                [ 'a', 'b', 'c' ], false, $closure,
+                [ 'd', 'e', 'f' ], false,
+                [ 'a', 'b', 'c' ]
+            ], [
+                [ 'a', 'b', 'c' ], false, $closure,
+                [ 'x' => 'd', 'y' => 'e', 'z' => 'f' ], false,
+                [ 'a', 'b', 'c' ]
+            ], [
+                [ 'a', 'b', 'c' ], true, $closure, '', false, [ 'a', 'b', 'c' ]
+            ], [
+                [ 'a', 'b', 'c' ], true, $closure, '0', false, [ 'a', 'b', 'c' ]
+            ], [
+                [ 'a', 'b', 'c' ], true, $closure, 0, false, [ 'a', 'b', 'c' ]
+            ], [
+                [ 'a', 'b', 'c' ], true, $closure, 0.0, false, [ 'a', 'b', 'c' ]
+            ], [
+                [ 'a', 'b', 'c' ], true, $closure, null, false, [ 'a', 'b', 'c' ]
+            ], [
+                [ 'a', 'b', 'c' ], true, $closure, true, false, [ 'a', 'b', 'c' ]
+            ], [
+                [ 'a', 'b', 'c' ], true, $closure, false, false, [ 'a', 'b', 'c' ]
+            ], [
+                [ 'a', 'b', 'c' ], true, $closure, [], false, [ 'a', 'b', 'c' ]
+            ], [
+                [ 'a', 'b', 'c' ], true, $closure, new \stdClass(), false, [ 'a', 'b', 'c' ]
+            ],
         ];
     }
     
