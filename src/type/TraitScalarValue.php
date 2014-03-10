@@ -78,6 +78,7 @@ trait TraitScalarValue
     final protected function setInstanceValue($value)
     {
         if (is_null($value) === false) {
+            /** @var IScalarValue $this */
             $this->instance_value     = $this->getValue($value);
             $this->has_instance_value = true;
         }
