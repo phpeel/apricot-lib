@@ -197,7 +197,14 @@ final class Arrays
         return static::eachWalk(
             $add_list,
             function ($value, $key, $result) use (&$list, $add_conditions) {
-                return (bool)($result | static::addWhen($add_conditions($value, $key), $list, $value));
+                $add_result = static::addWhen(
+                    $add_conditions($value, $key),
+                    $list,
+                    $value,
+                    is_string($key) ? $key : null
+                );
+                
+                return (bool)($result | $add_result);
             }
         );
     }
