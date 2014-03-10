@@ -141,17 +141,27 @@ final class GenericList implements \ArrayAccess, \Iterator, \Countable
     /**
      * リストの要素として許容する型の名前を設定します。
      * 
-     * @param Variable $type_name リストの要素として許容する型の名前
+     * @param Variable $obj_variable リストの要素として許容する型を表す列挙型のインスタンス
      */
     private function setListTypeName(Variable $obj_variable)
     {
         $this->list_type_name = String::removeNamespace((string)$obj_variable);
     }
+
+    /**
+     * リストの要素として許容する型を表すクラスインスタンスを取得します。
+     * 
+     * @return IScalarValue リストの要素として許容する型を表すクラスインスタンス
+     */
+    private function getListTypeObject()
+    {
+        return $this->obj_list_value;
+    }
     
     /**
-     * リストの要素として許容する型のインスタンスを設定します。
+     * リストの要素として許容する型を表すクラスインスタンスを設定します。
      * 
-     * @param Variable $type_name リストの要素として許容する型のインスタンス
+     * @param IScalarValue $obj_value リストの要素として許容する型を表すクラスインスタンス
      */
     private function setListTypeObject(IScalarValue $obj_value)
     {
@@ -185,10 +195,10 @@ final class GenericList implements \ArrayAccess, \Iterator, \Countable
      */
     private function getCasted($value)
     {
-        if ($this->obj_list_value->isValue($value) === false) {
+        if ($this->getListTypeObject()->isValue($value) === false) {
             throw new \DomainException("Generics list only accepts {$this->list_type_name}.");
         }
         
-        return $this->obj_list_value->getValue($value);
+        return $this->getListTypeObject()->getValue($value);
     }
 }
