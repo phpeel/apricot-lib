@@ -21,7 +21,7 @@ abstract class Enum
      * Enum クラスの新しいインスタンスを初期化します。
      * 
      * @final [オーバーライド禁止]
-     * @param mixed $value	このインスタンスの元のクラスに定義されている定数のうちどれかの値
+     * @param mixed $value このインスタンスの元のクラスに定義されている定数のうちどれかの値
      * 
      * @throws \InvalidArgumentException クラスに定義されていない値を指定した場合
      */
@@ -69,13 +69,13 @@ abstract class Enum
      */
     final public static function init($value, $default_value = null, callable $conditions = null)
     {
-        $class	= get_called_class();
+        $class = get_called_class();
         
         if ($value instanceof $class) {
             return $value;
         }
         
-        $scalar	= (isset($conditions) && $conditions() === true) ? $value : (
+        $scalar = (isset($conditions) && $conditions() === true) ? $value : (
             isset($default_value) ? $default_value : $value);
         
         return new $class($scalar);

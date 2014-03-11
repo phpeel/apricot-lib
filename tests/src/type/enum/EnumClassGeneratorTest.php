@@ -21,7 +21,7 @@ class EnumClassGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function test($enum_name, $enum_value)
     {
-        $enum_data	= EnumClassGenerator::done($enum_name, $enum_value);
+        $enum_data = EnumClassGenerator::done($enum_name, $enum_value);
         
         $this->assertInstanceOf($enum_name, $enum_data[0]);
         $this->assertInstanceOf($enum_value, $enum_data[1]);
