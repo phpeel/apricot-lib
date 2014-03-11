@@ -116,7 +116,7 @@ final class GenericList implements \ArrayAccess, \Iterator, \Countable
      */
     public function rewind()
     {
-        $this->position	= 0;
+        $this->position = 0;
     }
     
     /**
