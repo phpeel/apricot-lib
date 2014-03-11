@@ -19,9 +19,12 @@ final class Number
      */
     public static function isValidInt($values)
     {
-        return General::checkValueValid(func_get_args(), function ($value) {
-            return is_int($value);
-        });
+        return General::checkValueValid(
+            func_get_args(),
+            function ($value) {
+                return is_int($value);
+            }
+        );
     }
     
     /**
@@ -34,13 +37,33 @@ final class Number
      */
     public static function isValidUInt($values)
     {
-        return General::checkValueValid(func_get_args(), function ($value) {
-            return (is_int($value) && $value >= 0);
-        });
+        return General::checkValueValid(
+            func_get_args(),
+            function ($value) {
+                return (is_int($value) && $value >= 0);
+            }
+        );
     }
 
     /**
-     * 入力値が整数かつ指定した区間に含まれるかどうかを調べます。
+     * 一つ以上の入力値が符号ありの実数値であるかどうかを調べます。
+     * 
+     * @param mixed $values 一つ以上の調べる入力値
+     *
+     * @return Boolean 全ての入力値が符号ありの実数値である場合は true。それ以外の場合は false。
+     */
+    public static function isValidNumber($values)
+    {
+        return General::checkValueValid(
+            func_get_args(),
+            function ($value) {
+                return (is_int($value) || is_float($value));
+            }
+        );
+    }
+
+    /**
+     * 入力値が実数かつ指定した区間に含まれるかどうかを調べます。
      *
      * @param mixed $value                            調べる入力値
      * @param Integer $min                            区間の最小値となる端点
@@ -51,7 +74,7 @@ final class Number
      */
     public static function isInInterval($value, $min, $max, $open_end_points = false)
     {
-        if (static::isValidInt($value, $min, $max)) {
+        if (static::isValidNumber($value, $min, $max)) {
             if ($open_end_points === true) {
                 return ($min < $value && $value < $max);
             }
