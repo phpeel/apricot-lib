@@ -29,9 +29,9 @@ final class String
     /**
      * キーワードリストのうち一つが指定した文字列に含まれるかどうかを検出します。
      * 
-     * @param String $string                    検索対象の文字列
-     * @param Array $needle_list                検索するキーワードのリスト
-     * @param String $ignore_case [初期値=true] 大文字小文字を区別しないかどうか
+     * @param String $haystack                   検索対象の文字列
+     * @param Array $needle_list                 検索するキーワードのリスト
+     * @param Boolean $ignore_case [初期値=true] 大文字小文字を区別しないかどうか
      * 
      * @return Boolean キーワードリストのうち一つが検索対象の文字列に含まれる場合は true。
      * それ以外の場合は false。
@@ -72,7 +72,7 @@ final class String
      * 正規表現検索を行い、期待しない値以外の値と一致するかどうかを判別します。
      * 
      * @param String $search      検索対象の文字列
-     * @param String $regex_value 正規表現文字列
+     * @param String $regex       正規表現文字列
      * @param mixed $not_expected 正規表現検索の実行結果の期待しない値
      * (0=マッチする又は失敗, 1=マッチしない又は失敗, false=マッチする又はマッチしない)
      * 
