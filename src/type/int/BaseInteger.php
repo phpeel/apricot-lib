@@ -1,6 +1,7 @@
 <?php
 namespace Phpingguo\ApricotLib\Type\Int;
 
+use Phpingguo\ApricotLib\Common\Number;
 use Phpingguo\ApricotLib\Type\DefaultValueContainer;
 use Phpingguo\ApricotLib\Type\IScalarValue;
 use Phpingguo\ApricotLib\Type\TraitScalarValue;
@@ -77,21 +78,13 @@ abstract class BaseInteger implements IScalarValue
         // 内部処理用のキャッシュ値をクリアする
         $this->clearCacheValue();
         
-        if (is_null($check_value) === false && is_numeric($check_value)) {
-            $integer_value  = intval($check_value);
-            $float_value    = floatval($check_value);
-            $allow_unsigned = $this->getAllowUnsigned();
+        // INT型の最小値以上かつ最大値以下、かつ、型チェックなし比較で同じ値であれば、整数型
+        // 符号付チェックがある場合、0以上であれば符号なし整数型、それ以外は符号あり整数型
+        if ($this->isIntegerValue($check_value)) {
+            // 内部処理用にキャッシュ値をセットする
+            $this->setCacheValue(intval($check_value));
             
-            // INT型の最小値以上かつ最大値以下、かつ、型チェックなし比較で同じ値であれば、整数型
-            // 符号付チェックがある場合、0以上であれば符号なし整数型、それ以外は符号あり整数型
-            if (floatval(~PHP_INT_MAX) <= $float_value && $float_value <= floatval(PHP_INT_MAX) &&
-                $integer_value == $float_value &&
-                ($allow_unsigned === false || $allow_unsigned === true && $float_value >= 0)) {
-                // 内部処理用にキャッシュ値をセットする
-                $this->setCacheValue($integer_value);
-                
-                return true;
-            }
+            return true;
         }
         
         return false;
@@ -110,5 +103,25 @@ abstract class BaseInteger implements IScalarValue
     private function getIntegerValue($base_value)
     {
         return $this->isValue($base_value) ? $this->getCacheValue(true) : null;
+    }
+
+    /**
+     * 入力値が整数値であるかどうかを調べます。
+     * 
+     * @param mixed $value 整数値かどうかを調べる入力値
+     *
+     * @return Boolean 入力値が整数型である場合は true。それ以外の場合は false。
+     */
+    private function isIntegerValue($value)
+    {
+        $integer_value = intval($value);
+        $float_value   = floatval($value);
+        $is_interval   = Number::isInInterval(
+            $float_value,
+            $this->getAllowUnsigned() ? 0 : floatval(~PHP_INT_MAX),
+            floatval(PHP_INT_MAX)
+        );
+        
+        return (is_numeric($value) && $is_interval === true && $integer_value == $float_value);
     }
 }
