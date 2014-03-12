@@ -1,0 +1,5 @@
+Clusters:
+  -
+    Host: localhost
+    Port: 11211
+ExpireTime: 300

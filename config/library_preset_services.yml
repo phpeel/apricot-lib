@@ -4,3 +4,4 @@
 - 'Phpingguo\ApricotLib\Type\Float\UnsignedFloat'
 - 'Phpingguo\ApricotLib\Type\String\String'
 - 'Phpingguo\ApricotLib\Type\String\Text'
+- 'Phpingguo\ApricotLib\Caching\MemcacheAgent'
