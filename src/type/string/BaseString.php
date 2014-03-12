@@ -3,6 +3,7 @@ namespace Phpingguo\ApricotLib\Type\String;
 
 use Phpingguo\ApricotLib\Common\String as CString;
 use Phpingguo\ApricotLib\Enums\Charset;
+use Phpingguo\ApricotLib\LibrarySupervisor;
 use Phpingguo\ApricotLib\Type\DefaultValueContainer;
 use Phpingguo\ApricotLib\Type\IExtendScalarValue;
 use Phpingguo\ApricotLib\Type\TraitScalarValue;
@@ -45,7 +46,7 @@ abstract class BaseString implements IExtendScalarValue
     final public static function getInstance()
     {
         // 初期値設定の再ロードは行わない
-        return static::getDiContainer()->get(get_called_class());
+        return LibrarySupervisor::getDiContainer()->get(get_called_class());
     }
     
     // ---------------------------------------------------------------------------------------------
