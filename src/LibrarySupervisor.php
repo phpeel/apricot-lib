@@ -2,6 +2,7 @@
 namespace Phpingguo\ApricotLib;
 
 use Phpingguo\ApricotLib\Common\String as CString;
+use Phpingguo\CitronDI\AuraDIWrapper;
 
 /**
  * ライブラリを統括するクラスです。
@@ -11,6 +12,18 @@ use Phpingguo\ApricotLib\Common\String as CString;
  */
 final class LibrarySupervisor
 {
+    /**
+     * ライブラリで使用するDIコンテナのインスタンスを取得します。
+     *
+     * @param String $service_group_name [初期値='library'] 使用するサービスのグループ名
+     *
+     * @return \Aura\Di\Container ライブラリで使用するDIコンテナのインスタンス
+     */
+    public static function getDiContainer($service_group_name = 'library')
+    {
+        return AuraDIWrapper::init($service_group_name, static::getConfigPath());
+    }
+    
     /**
      * ライブラリのルートディレクトリのファイルパスを取得します。
      * 
