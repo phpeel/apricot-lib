@@ -69,7 +69,7 @@ final class MemcacheAgent
      */
     public function setClustering($setting_dir = null, $setting_file = null)
     {
-        if ($this->isEnabled() == false) {
+        if ($this->isEnabled() === false) {
             // @codeCoverageIgnoreStart
             return false;
             // @codeCoverageIgnoreEnd
@@ -180,7 +180,7 @@ final class MemcacheAgent
      */
     private function getMemcache()
     {
-        if ($this->isEnabled() == false) {
+        if ($this->isEnabled() === false) {
             // @codeCoverageIgnoreStart
             throw new \RuntimeException('Memcache instance is not exists.');
             // @codeCoverageIgnoreEnd
