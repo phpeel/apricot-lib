@@ -1,9 +1,6 @@
 <?php
 namespace Phpingguo\ApricotLib\Type;
 
-use Phpingguo\ApricotLib\LibrarySupervisor;
-use Phpingguo\CitronDI\AuraDIWrapper;
-
 /**
  * フレームワークでのスカラー値オブジェクトを扱うための基本処理を提供するトレイトです。
  * 
@@ -18,19 +15,6 @@ trait TraitScalarValue
     private $instance_value     = null;
     private $default_value      = null;
     private $cache_value        = null;
-    
-    // ---------------------------------------------------------------------------------------------
-    // private static methods
-    // ---------------------------------------------------------------------------------------------
-    /**
-     * このライブラリで使用可能なDIコンテナのインスタンスを取得します。
-     * 
-     * @return \Aura\Di\Container このライブラリで使用可能なDIコンテナのインスタンス
-     */
-    final protected static function getDiContainer()
-    {
-        return AuraDIWrapper::init('library', LibrarySupervisor::getConfigPath());
-    }
     
     // ---------------------------------------------------------------------------------------------
     // public member methods
