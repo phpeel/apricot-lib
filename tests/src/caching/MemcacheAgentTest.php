@@ -10,6 +10,7 @@ class MemcacheAgentTest extends \PHPUnit_Framework_TestCase
         return [
             [ 'test_group', 'test_key', 'test_value', null ],
             [ 'test_group', null, 'test_value', 'InvalidArgumentException' ],
+            [ null, 'test_key', 'test_value', 'InvalidArgumentException' ],
         ];
     }
     
