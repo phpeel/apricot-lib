@@ -8,7 +8,7 @@ use Phpingguo\ApricotLib\Common\String;
 use Phpingguo\ApricotLib\LibrarySupervisor;
 
 /**
- * Memcache によるキャッシュデータ管理を代理して請け負うクラスです。
+ * Memcache によるキャッシュデータ管理を仲介するクラスです。
  * 
  * @final [継承禁止クラス]
  * @author hiroki sugawara
