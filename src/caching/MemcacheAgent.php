@@ -16,6 +16,11 @@ use Phpingguo\ApricotLib\LibrarySupervisor;
 final class MemcacheAgent
 {
     // ---------------------------------------------------------------------------------------------
+    // import trait
+    // ---------------------------------------------------------------------------------------------
+    use TraitCacheVersion;
+    
+    // ---------------------------------------------------------------------------------------------
     // private fields
     // ---------------------------------------------------------------------------------------------
     private $obj_memcache = null;
@@ -30,7 +35,19 @@ final class MemcacheAgent
     public function __construct()
     {
         // Memcacheは存在しない場合でも他のライブラリとは異なり例外はスローしない
-        class_exists('Memcache', false) && $this->setMemcache(new \Memcache());
+        if (class_exists('Memcache', false)) {
+            $this->setMemcache(new \Memcache());
+            $this->setCallbackGetter(
+                function ($ver_name) {
+                    return $this->getMemcache()->get($ver_name);
+                }
+            );
+            $this->setCallbackSetter(
+                function ($ver_name, $version) {
+                    $this->getMemcache()->set($ver_name, $version);
+                }
+            );
+        }
     }
     
     // ---------------------------------------------------------------------------------------------
@@ -103,20 +120,7 @@ final class MemcacheAgent
      */
     public function get($group_name, $key, $default = null)
     {
-        if (Arrays::isValid($key)) {
-            $key_data = [];
-            
-            Arrays::eachWalk(
-                $key,
-                function ($key_name) use (&$key_data, $group_name) {
-                    Arrays::addWhen(true, $key_data, $this->generateKeyName($group_name, $key_name));
-                }
-            );
-        } else {
-            $key_data = $this->generateKeyName($group_name, $key);
-        }
-        
-        return $this->getMemcache()->get($key_data) ?: $default;
+        return $this->getMemcache()->get($this->getConvertedKeyName($group_name, $key)) ?: $default;
     }
 
     /**
@@ -170,7 +174,7 @@ final class MemcacheAgent
     }
     
     // ---------------------------------------------------------------------------------------------
-    // private class methods
+    // private member methods
     // ---------------------------------------------------------------------------------------------
     /**
      * 生成済みの Memcache のインスタンスを取得します。
@@ -259,54 +263,5 @@ final class MemcacheAgent
     private function getLoadYamlFileName($file_name)
     {
         return String::isValid($file_name) ? $file_name : 'library_memcache_clustering';
-    }
-
-    /**
-     * キャッシュデータの参照や保存に使用するキーの完全名を生成します。
-     * 
-     * @param String $group_name                     キーのグループ名
-     * @param String $key                            キーの名前
-     * @param Boolean $allow_key_null [初期値=false] キーの名前に無効な値を許すかどうか
-     *
-     * @throws \InvalidArgumentException パラメータ $allow_key_null が false の時に $key が無効な値の場合
-     *
-     * @return String キャッシュデータの参照や保存に使用するキーの完全名
-     */
-    private function generateKeyName($group_name, $key, $allow_key_null = false)
-    {
-        if ($allow_key_null === false && empty($key)) {
-            throw new \InvalidArgumentException('$key does not accepts null.');
-        }
-        
-        return $this->generateCacheVersion($group_name) . (empty($key) ? '' : "_{$key}");
-    }
-
-    /**
-     * 指定したグループのバージョンを表す文字列を生成します。
-     * 
-     * @param String $group_name グループの名前
-     * 
-     * @return string 指定したグループのバージョンを表す文字列
-     */
-    private function generateCacheVersion($group_name)
-    {
-        $ver_name = $this->getCacheVersion($group_name);
-        $version  = $this->getMemcache()->get($ver_name) ?: 1;
-        
-        $this->getMemcache()->set($ver_name, $version);
-        
-        return "{$group_name}_{$version}";
-    }
-
-    /**
-     * 指定したグループのバージョン番号を参照するためのキーを取得します。
-     *
-     * @param String $group_name バージョン番号を参照するグループの名前
-     * 
-     * @return String 指定したグループのバージョン番号を参照するためのキー
-     */
-    private function getCacheVersion($group_name)
-    {
-        return "{$group_name}_version";
     }
 }
