@@ -5,3 +5,4 @@
 - 'Phpingguo\ApricotLib\Type\String\String'
 - 'Phpingguo\ApricotLib\Type\String\Text'
 - 'Phpingguo\ApricotLib\Caching\MemcacheAgent'
+- 'Phpingguo\ApricotLib\Caching\ApcAgent'
