@@ -121,19 +121,6 @@ trait TraitCacheVersion
     }
 
     /**
-     * 指定したグループのバージョン番号を一つ上げます。
-     *
-     * @final [オーバーライド禁止]
-     * @param String $group_name グループの名前
-     * 
-     * @return Integer 指定したグループのバージョン番号を一つ上げた後の値
-     */
-    final protected function incrementCacheVersion($group_name)
-    {
-        return $this->generateCacheVersion($group_name, 1);
-    }
-
-    /**
      * 指定したグループのバージョン番号を生成します。
      * 
      * @param String $group_name              グループの名前
