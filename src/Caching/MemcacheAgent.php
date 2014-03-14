@@ -162,7 +162,7 @@ final class MemcacheAgent
      */
     public function removeGroup($group_name)
     {
-        $this->getMemcache()->increment($this->getCacheVersion($group_name));
+        $this->getMemcache()->increment($this->getCacheVersionKey($group_name));
     }
 
     /**

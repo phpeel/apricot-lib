@@ -105,25 +105,72 @@ trait TraitCacheVersion
             throw new \InvalidArgumentException('$key does not accepts null.');
         }
         
-        return $this->generateCacheVersion($group_name) . (empty($key) ? '' : "_{$key}");
+        return $this->getCacheVersionPrefix($group_name) . (empty($key) ? '' : "_{$key}");
     }
 
     /**
      * 指定したグループのバージョンを表す文字列を生成します。
      * 
-     * @final [オーバーライド禁止]
      * @param String $group_name グループの名前
      * 
      * @return string 指定したグループのバージョンを表す文字列
      */
-    final protected function generateCacheVersion($group_name)
+    private function getCacheVersionPrefix($group_name)
     {
-        $ver_name = $this->getCacheVersion($group_name);
-        $version  = call_user_func($this->getCallbackGetter(), $ver_name) ?: 1;
+        return "{$group_name}_{$this->generateCacheVersion($group_name)}";
+    }
+
+    /**
+     * 指定したグループのバージョン番号を一つ上げます。
+     *
+     * @final [オーバーライド禁止]
+     * @param String $group_name グループの名前
+     * 
+     * @return Integer 指定したグループのバージョン番号を一つ上げた後の値
+     */
+    final protected function incrementCacheVersion($group_name)
+    {
+        return $this->generateCacheVersion($group_name, 1);
+    }
+
+    /**
+     * 指定したグループのバージョン番号を生成します。
+     * 
+     * @param String $group_name              グループの名前
+     * @param Integer $delta_value [初期値=0] 現在のバージョンを操作するデルタ値
+     * 
+     * @return Integer 指定したグループのバージョン番号
+     */
+    private function generateCacheVersion($group_name, $delta_value = 0)
+    {
+        $new_version = intval($this->getCacheVersion($group_name)) + $delta_value;
         
-        call_user_func($this->getCallbackSetter(), $ver_name, $version);
+        $this->setCacheVersion($group_name, $new_version);
         
-        return "{$group_name}_{$version}";
+        return $new_version;
+    }
+
+    /**
+     * 指定したグループの現在のバージョン番号を取得します。
+     * 
+     * @param String $group_name グループの名前
+     * 
+     * @return Integer 指定したグループの現在のバージョン番号
+     */
+    private function getCacheVersion($group_name)
+    {
+        return call_user_func($this->getCallbackGetter(), $this->getCacheVersionKey($group_name)) ?: 1;
+    }
+
+    /**
+     * 指定したグループの現在のバージョン番号を設定します。
+     * 
+     * @param String $group_name グループの名前
+     * @param Integer $version   グループに設定する新しいバージョン番号
+     */
+    private function setCacheVersion($group_name, $version)
+    {
+        call_user_func($this->getCallbackSetter(), $this->getCacheVersionKey($group_name), $version);
     }
 
     /**
@@ -135,7 +182,7 @@ trait TraitCacheVersion
      * @throws \InvalidArgumentException グループの名前が文字列型ではなかった場合
      * @return String 指定したグループのバージョン番号を参照するためのキー
      */
-    final protected function getCacheVersion($group_name)
+    final protected function getCacheVersionKey($group_name)
     {
         if (String::isValid($group_name) === false) {
             throw new \InvalidArgumentException('$group_name only accepts string.');
