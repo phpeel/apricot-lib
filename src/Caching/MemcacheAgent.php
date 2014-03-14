@@ -110,10 +110,10 @@ final class MemcacheAgent
     }
 
     /**
-     * キャッシュデータから指定したキーに該当する値を取得します。
+     * キャッシュデータから指定したキー名またはキー名の一覧に該当する値を取得します。
      * 
      * @param String $group_name           キーのグループ名
-     * @param String $key                  値を取得するキーの名前
+     * @param String|Array $key            値を取得するキーの名前、またはそれらからなる配列
      * @param mixed $default [初期値=null] 値が存在しない場合に代用する値
      * 
      * @return mixed 取得成功時は指定キーに該当する値。それ以外の場合は $default で指定した値。
