@@ -23,9 +23,10 @@ trait TraitCacheVersion
     /**
      * キャッシュデータの取得を行うコールバックメソッドを取得します。
      * 
+     * @final [オーバーライド禁止]
      * @return callable キャッシュデータの取得を行うコールバックメソッド
      */
-    private function getCallbackGetter()
+    final protected function getCallbackGetter()
     {
         return $this->getter_callback;
     }
@@ -33,9 +34,10 @@ trait TraitCacheVersion
     /**
      * キャッシュデータの取得を行うコールバックメソッドを設定します。
      * 
+     * @final [オーバーライド禁止]
      * @param callable $getter キャッシュデータの取得を行うコールバックメソッド 
      */
-    private function setCallbackGetter(callable $getter)
+    final protected function setCallbackGetter(callable $getter)
     {
         $this->getter_callback = $getter;
     }
@@ -43,9 +45,10 @@ trait TraitCacheVersion
     /**
      * キャッシュデータの設定を行うコールバックメソッドを取得します。
      * 
+     * @final [オーバーライド禁止]
      * @return callable キャッシュデータの設定を行うコールバックメソッド
      */
-    private function getCallbackSetter()
+    final protected function getCallbackSetter()
     {
         return $this->setter_callback;
     }
@@ -53,9 +56,10 @@ trait TraitCacheVersion
     /**
      * キャッシュデータの設定を行うコールバックメソッドを設定します。
      * 
-     * @param callable $getter キャッシュデータの設定を行うコールバックメソッド 
+     * @final [オーバーライド禁止]
+     * @param callable $setter キャッシュデータの設定を行うコールバックメソッド 
      */
-    private function setCallbackSetter(callable $setter)
+    final protected function setCallbackSetter(callable $setter)
     {
         $this->setter_callback = $setter;
     }
@@ -63,12 +67,13 @@ trait TraitCacheVersion
     /**
      * キャッシュデータに使用する完全なキーの名前またはその一覧を取得します。
      *
+     * @final [オーバーライド禁止]
      * @param String $group_name キーが属するグループの名前
      * @param String|Array $key  取得対象となるキーの名前またはその一覧
      * 
      * @return Array キャッシュデータに使用する完全なキーの名前またはその一覧
      */
-    private function getConvertedKeyName($group_name, $key)
+    final protected function getConvertedKeyName($group_name, $key)
     {
         if (Arrays::isValid($key)) {
             return array_map(
@@ -85,6 +90,7 @@ trait TraitCacheVersion
     /**
      * キャッシュデータの参照や保存に使用するキーの完全名を生成します。
      * 
+     * @final [オーバーライド禁止]
      * @param String $group_name                     キーのグループ名
      * @param String $key                            キーの名前
      * @param Boolean $allow_key_null [初期値=false] キーの名前に無効な値を許すかどうか
@@ -93,7 +99,7 @@ trait TraitCacheVersion
      *
      * @return String キャッシュデータの参照や保存に使用するキーの完全名
      */
-    private function generateKeyName($group_name, $key, $allow_key_null = false)
+    final protected function generateKeyName($group_name, $key, $allow_key_null = false)
     {
         if ($allow_key_null === false && empty($key)) {
             throw new \InvalidArgumentException('$key does not accepts null.');
@@ -105,11 +111,12 @@ trait TraitCacheVersion
     /**
      * 指定したグループのバージョンを表す文字列を生成します。
      * 
+     * @final [オーバーライド禁止]
      * @param String $group_name グループの名前
      * 
      * @return string 指定したグループのバージョンを表す文字列
      */
-    private function generateCacheVersion($group_name)
+    final protected function generateCacheVersion($group_name)
     {
         $ver_name = $this->getCacheVersion($group_name);
         $version  = call_user_func($this->getCallbackGetter(), $ver_name) ?: 1;
@@ -121,13 +128,14 @@ trait TraitCacheVersion
 
     /**
      * 指定したグループのバージョン番号を参照するためのキーを取得します。
-     *
+     * 
+     * @final [オーバーライド禁止]
      * @param String $group_name バージョン番号を参照するグループの名前
      *
      * @throws \InvalidArgumentException グループの名前が文字列型ではなかった場合
      * @return String 指定したグループのバージョン番号を参照するためのキー
      */
-    private function getCacheVersion($group_name)
+    final protected function getCacheVersion($group_name)
     {
         if (String::isValid($group_name) === false) {
             throw new \InvalidArgumentException('$group_name only accepts string.');
