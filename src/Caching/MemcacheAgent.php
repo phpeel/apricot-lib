@@ -109,6 +109,39 @@ final class MemcacheAgent
     }
 
     /**
+     * クラスタリングした Memcache サーバーのアドレス一覧を取得します。
+     * 
+     * @param String $protocol [初期値='tcp'] 取得一覧の各項目に含まれるプロトコル文字列
+     * 
+     * @return Array クラスタリングした Memcache サーバーのアドレス一覧
+     */
+    public function getClustering($protocol = 'tcp')
+    {
+        if ($this->isEnabled() === false) {
+            // @codeCoverageIgnoreStart
+            return false;
+            // @codeCoverageIgnoreEnd
+        }
+        
+        $address_list = [];
+        $str_protocol = String::isValid($protocol) ? "{$protocol}://" : '';
+        $cluster_list = $this->getSettingData('Clusters', []);
+        
+        Arrays::eachWalk(
+            $cluster_list,
+            function ($server_data) use (&$address_list, $str_protocol) {
+                $host = Arrays::getValue($server_data, 'Host', '');
+                $port = Arrays::getValue($server_data, 'Port', '');
+                $url  = "{$str_protocol}{$host}:{$port}?persistent=1&weight=1";
+                
+                Arrays::addWhen(String::isValid("{$host}{$port}"), $address_list, $url);
+            }
+        );
+        
+        return $address_list;
+    }
+
+    /**
      * キャッシュデータから指定したキー名またはキー名の一覧に該当する値を取得します。
      * 
      * @param String $group_name           キーのグループ名
