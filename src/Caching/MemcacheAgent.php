@@ -94,7 +94,7 @@ final class MemcacheAgent
         
         $this->setSettingData($this->loadSetting($setting_dir, $setting_file));
         
-        $cluster_list  = Arrays::getValue($this->getSettingData(), 'Clusters', []);
+        $cluster_list  = $this->getSettingData('Clusters', []);
         $server_weight = empty($cluster_list) ? 0 : (int)(100 / count($cluster_list));
         
         /** @noinspection PhpUnusedParameterInspection */
@@ -135,7 +135,7 @@ final class MemcacheAgent
      */
     public function set($group_name, $key, $value, $expire = null)
     {
-        $default_expire  = Arrays::getValue($this->getSettingData(), 'ExpireTime', 300);
+        $default_expire  = $this->getSettingData('ExpireTime', 300);
         $key_name    = $this->generateKeyName($group_name, $key);
         $expire_time = Number::isValidInt($expire) ? $expire : $default_expire;
         
@@ -206,11 +206,15 @@ final class MemcacheAgent
     /**
      * キャッシュに関する設定データを取得します。
      * 
-     * @return Array キャッシュに関する設定データ
+     * @param String $key [初期値=null]    キャッシュ設定データのキーの名前
+     * @param mixed $default [初期値=null] キー名指定時にそれに該当する値がない場合の代用値
+     * 
+     * @return Array $key が未指定の時はキャッシュに関する全ての設定データ。
+     * $key を指定した場合、取得成功時は設定データのうち $key に紐付く設定データ、取得失敗時は $default の値。
      */
-    private function getSettingData()
+    private function getSettingData($key = null, $default = null)
     {
-        return $this->setting_data;
+        return is_null($key) ? $this->setting_data : Arrays::getValue($this->setting_data, $key, $default);
     }
 
     /**
