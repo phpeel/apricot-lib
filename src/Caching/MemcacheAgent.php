@@ -95,16 +95,15 @@ final class MemcacheAgent
         $this->setSettingData($this->loadSetting($setting_dir, $setting_file));
         
         $cluster_list  = $this->getSettingData('Clusters', []);
-        $server_weight = empty($cluster_list) ? 0 : (int)(100 / count($cluster_list));
         
         /** @noinspection PhpUnusedParameterInspection */
         return Arrays::eachWalk(
             $cluster_list,
-            function ($server_data, $key, $result) use ($server_weight) {
+            function ($server_data, $key, $result) {
                 $host = Arrays::getValue($server_data, 'Host', null);
                 $port = Arrays::getValue($server_data, 'Port', null);
                 
-                return (bool)($result | $this->getMemcache()->addserver($host, $port, true, $server_weight));
+                return (bool)($result | $this->getMemcache()->addserver($host, $port, true, 1));
             }
         );
     }
