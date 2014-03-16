@@ -89,4 +89,20 @@ class MemcacheAgentTest extends \PHPUnit_Framework_TestCase
             $this->assertContains($item, $list);
         }
     }
+
+    public function providerGetClustering()
+    {
+        return [
+            [ 'tcp', [ 'tcp://localhost:11211?persistent=1&weight=1' ] ],
+            [ null, [ 'localhost:11211?persistent=1&weight=1' ] ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerGetClustering
+     */
+    public function testGetClustering($protocol, $expected)
+    {
+        $this->assertSame($expected, MemcacheAgent::getInstance()->getClustering($protocol));
+    }
 }
