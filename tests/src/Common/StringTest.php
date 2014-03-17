@@ -134,4 +134,40 @@ class StringTest extends \PHPUnit_Framework_TestCase
         
         $this->assertSame($expected, String::unionDirectoryPath($base_path, $sub_directory));
     }
+    
+    public function providerGetEnumFullName()
+    {
+        $enum_namespace = 'Phpingguo\\ApricotLib\\Enums\\';
+        
+        return [
+            [ $enum_namespace, LibSupervisor::ENUM_CHARSET, 'Phpingguo\ApricotLib\Enums\Charset', null ],
+            [ $enum_namespace, LibSupervisor::ENUM_VARIABLE, 'Phpingguo\ApricotLib\Enums\Variable', null ],
+            [ $enum_namespace, null, null, 'InvalidArgumentException' ],
+            [ null, LibSupervisor::ENUM_CHARSET, null, 'InvalidArgumentException' ],
+            [ null, LibSupervisor::ENUM_VARIABLE, null, 'InvalidArgumentException' ],
+            [ null, null, null, 'InvalidArgumentException' ],
+            [ true, true, null, 'InvalidArgumentException' ],
+            [ false, false, null, 'InvalidArgumentException' ],
+            [ [], [], null, 'InvalidArgumentException' ],
+            [ [ 'a' ], [ 'a' ], null, 'InvalidArgumentException' ],
+            [ '', '', null, 'InvalidArgumentException' ],
+            [ 0, 0, null, 'InvalidArgumentException' ],
+            [ 0.0, 0.0, null, 'InvalidArgumentException' ],
+            [ 0.1, 0.1, null, 'InvalidArgumentException' ],
+            [ '0', '0', null, 'InvalidArgumentException' ],
+            [ '0.0', '0.0', null, 'InvalidArgumentException' ],
+            [ '0.1', '0.1', null, 'InvalidArgumentException' ],
+            [ new \stdClass(), new \stdClass(), null, 'InvalidArgumentException' ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerGetEnumFullName
+     */
+    public function testGetEnumFullName($namespace, $enum_name, $expected, $exception)
+    {
+        isset($exception) && $this->setExpectedException($exception);
+        
+        $this->assertSame($expected, String::getEnumFullName($namespace, $enum_name));
+    }
 }
