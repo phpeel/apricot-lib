@@ -12,7 +12,6 @@ class StringTest extends \PHPUnit_Framework_TestCase
         return [
             [ LibEnumName::VARIABLE, 'Variable' ],
             [ LibEnumName::CHARSET, 'Charset' ],
-            [ LibEnumName::HTTP_METHOD, 'HttpMethod' ],
             [ 'stdClass', 'stdClass' ],
             [ '', '' ],
             [ true, '' ],
