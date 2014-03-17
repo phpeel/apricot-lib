@@ -11,7 +11,7 @@ use Phpingguo\CitronDI\AuraDIWrapper;
  * @final [継承禁止クラス]
  * @author hiroki sugawara
  */
-final class LibrarySupervisor
+final class LibSupervisor
 {
     // ---------------------------------------------------------------------------------------------
     // const fields
