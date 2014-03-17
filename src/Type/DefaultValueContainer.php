@@ -3,7 +3,7 @@ namespace Phpingguo\ApricotLib\Type;
 
 use Phpingguo\ApricotLib\Common\General;
 use Phpingguo\ApricotLib\Common\String as CString;
-use Phpingguo\ApricotLib\LibrarySupervisor;
+use Phpingguo\ApricotLib\LibSupervisor;
 
 /**
  * スカラータイプクラスのデフォルト値を管理するクラスです。
@@ -84,7 +84,7 @@ final class DefaultValueContainer
      */
     private static function parseSettingFile()
     {
-        $value = General::getParsedYamlFile(LibrarySupervisor::getConfigPath(), 'default_values');
+        $value = General::getParsedYamlFile(LibSupervisor::getConfigPath(), 'default_values');
 
         return is_array($value) ? $value : null;
     }
