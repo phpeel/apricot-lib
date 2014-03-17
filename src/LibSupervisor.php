@@ -63,10 +63,6 @@ final class LibSupervisor
      */
     public static function getEnumFullName($enum_name)
     {
-        if (CString::isValid($enum_name, true) === false) {
-            throw new \InvalidArgumentException('$enum_name only accepts string type.');
-        }
-        
-        return "Phpingguo\\ApricotLib\\Enums\\{$enum_name}";
+        return CString::getEnumFullName("Phpingguo\\ApricotLib\\Enums\\", $enum_name);
     }
 }
