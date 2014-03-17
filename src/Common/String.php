@@ -103,4 +103,22 @@ final class String
         
         return realpath($parent_path);
     }
+
+    /**
+     * 列挙型クラスの名前空間付きの完全修飾名を取得します。
+     * 
+     * @param String $namespace 列挙型クラスの所属する名前空間
+     * @param String $enum_name 完全修飾名を取得する列挙型クラスの名前
+     *
+     * @throws \InvalidArgumentException 有効な列挙型クラスではなかった場合
+     * @return String 列挙型クラスの名前空間付きの完全修飾名
+     */
+    public static function getEnumFullName($namespace, $enum_name)
+    {
+        if (static::isValid($namespace, true) === false || static::isValid($enum_name, true) === false) {
+            throw new \InvalidArgumentException('$enum_name only accepts string type.');
+        }
+        
+        return "{$namespace}{$enum_name}";
+    }    
 }
