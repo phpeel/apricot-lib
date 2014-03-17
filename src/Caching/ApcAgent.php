@@ -2,7 +2,7 @@
 namespace Phpingguo\ApricotLib\Caching;
 
 use Phpingguo\ApricotLib\Common\Number;
-use Phpingguo\ApricotLib\LibrarySupervisor;
+use Phpingguo\ApricotLib\LibSupervisor;
 
 /**
  * Alternative PHP Cache によるキャッシュ管理を仲介するクラスです。
@@ -58,7 +58,7 @@ final class ApcAgent
      */
     public static function getInstance()
     {
-        return LibrarySupervisor::getDiContainer()->get(__CLASS__);
+        return LibSupervisor::getDiContainer()->get(__CLASS__);
     }
     
     // ---------------------------------------------------------------------------------------------

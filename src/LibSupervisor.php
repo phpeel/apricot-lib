@@ -10,8 +10,17 @@ use Phpingguo\CitronDI\AuraDIWrapper;
  * @final [継承禁止クラス]
  * @author hiroki sugawara
  */
-final class LibrarySupervisor
+final class LibSupervisor
 {
+    // ---------------------------------------------------------------------------------------------
+    // const fields
+    // ---------------------------------------------------------------------------------------------
+    const ENUM_CHARSET  = 'Charset';
+    const ENUM_VARIABLE = 'Variable';
+
+    // ---------------------------------------------------------------------------------------------
+    // public static methods
+    // ---------------------------------------------------------------------------------------------
     /**
      * ライブラリで使用するDIコンテナのインスタンスを取得します。
      *
@@ -42,5 +51,22 @@ final class LibrarySupervisor
     public static function getConfigPath()
     {
         return CString::unionDirectoryPath(static::getBasePath(), 'config');
+    }
+
+    /**
+     * 列挙型クラスの名前空間付きの完全修飾名を取得します。
+     * 
+     * @param String $enum_name 完全修飾名を取得する列挙型クラスの名前
+     *
+     * @throws \InvalidArgumentException 有効な列挙型クラスではなかった場合
+     * @return String 列挙型クラスの名前空間付きの完全修飾名
+     */
+    public static function getEnumFullName($enum_name)
+    {
+        if (CString::isValid($enum_name, true) === false) {
+            throw new \InvalidArgumentException('$enum_name only accepts string type.');
+        }
+        
+        return "Phpingguo\\ApricotLib\\Enums\\{$enum_name}";
     }
 }

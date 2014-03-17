@@ -5,7 +5,7 @@ use Phpingguo\ApricotLib\Common\Arrays;
 use Phpingguo\ApricotLib\Common\General;
 use Phpingguo\ApricotLib\Common\Number;
 use Phpingguo\ApricotLib\Common\String;
-use Phpingguo\ApricotLib\LibrarySupervisor;
+use Phpingguo\ApricotLib\LibSupervisor;
 
 /**
  * Memcache によるキャッシュデータ管理を仲介するクラスです。
@@ -60,7 +60,7 @@ final class MemcacheAgent
      */
     public static function getInstance()
     {
-        return LibrarySupervisor::getDiContainer()->get(__CLASS__);
+        return LibSupervisor::getDiContainer()->get(__CLASS__);
     }
     
     // ---------------------------------------------------------------------------------------------
@@ -286,7 +286,7 @@ final class MemcacheAgent
      */
     private function getLoadDirectoryPath($directory_path)
     {
-        return String::isValid($directory_path) ? $directory_path : LibrarySupervisor::getConfigPath();
+        return String::isValid($directory_path) ? $directory_path : LibSupervisor::getConfigPath();
     }
 
     /**

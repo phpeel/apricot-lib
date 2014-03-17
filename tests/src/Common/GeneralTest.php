@@ -2,17 +2,17 @@
 namespace Phpingguo\ApricotLib\Tests\Common;
 
 use Phpingguo\ApricotLib\Common\General;
-use Phpingguo\ApricotLib\LibrarySupervisor;
+use Phpingguo\ApricotLib\LibSupervisor;
 
 class GeneralTest extends \PHPUnit_Framework_TestCase
 {
     public function providerParsedYamlFileFailed()
     {
         return [
-            [ LibrarySupervisor::getConfigPath(), 'default_values', null ],
-            [ LibrarySupervisor::getConfigPath(), 'library_preset_services', null ],
+            [ LibSupervisor::getConfigPath(), 'default_values', null ],
+            [ LibSupervisor::getConfigPath(), 'library_preset_services', null ],
             [ null, 'failed_exception', 'InvalidArgumentException' ],
-            [ LibrarySupervisor::getConfigPath(), null, 'InvalidArgumentException' ],
+            [ LibSupervisor::getConfigPath(), null, 'InvalidArgumentException' ],
             [ false, true, 'InvalidArgumentException' ],
             [ 0, 1, 'InvalidArgumentException' ],
             [ 0.0, 0.1, 'InvalidArgumentException' ],

@@ -2,17 +2,15 @@
 namespace Phpingguo\ApricotLib\Tests\Common;
 
 use Phpingguo\ApricotLib\Common\String;
-use Phpingguo\ApricotLib\Enums\LibEnumName;
-use Phpingguo\ApricotLib\LibrarySupervisor;
+use Phpingguo\ApricotLib\LibSupervisor;
 
 class StringTest extends \PHPUnit_Framework_TestCase
 {
     public function providerRemoveNamespace()
     {
         return [
-            [ LibEnumName::VARIABLE, 'Variable' ],
-            [ LibEnumName::CHARSET, 'Charset' ],
-            [ LibEnumName::HTTP_METHOD, 'HttpMethod' ],
+            [ LibSupervisor::getEnumFullName(LibSupervisor::ENUM_VARIABLE), 'Variable' ],
+            [ LibSupervisor::getEnumFullName(LibSupervisor::ENUM_CHARSET), 'Charset' ],
             [ 'stdClass', 'stdClass' ],
             [ '', '' ],
             [ true, '' ],
@@ -126,7 +124,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnionDirectoryPath($sub_directory)
     {
-        $base_path = LibrarySupervisor::getBasePath();
+        $base_path = LibSupervisor::getBasePath();
         $expected  = $base_path;
         
         if (String::isValid($sub_directory)) {

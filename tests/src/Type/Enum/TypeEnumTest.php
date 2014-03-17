@@ -2,22 +2,19 @@
 namespace Phpingguo\ApricotLib\Tests\Type\Enum;
 
 use Phpingguo\ApricotLib\Enums\Variable;
-use Phpingguo\ApricotLib\Enums\LibEnumName;
+use Phpingguo\ApricotLib\LibSupervisor;
 
 class TypeEnumTest extends \PHPUnit_Framework_TestCase
 {
     public function provider()
     {
         return [
-            [ LibEnumName::CHARSET, 'ASCII', 'ASCII', null ],
-            [ LibEnumName::CHARSET, 'UTF8', 'UTF-8', null ],
-            [ LibEnumName::CHARSET, 'EUC_JP', 'EUC-JP', 'InvalidArgumentException' ],
-            [ LibEnumName::HTTP_METHOD, 'GET', 'GET', null ],
-            [ LibEnumName::HTTP_METHOD, 'POST', 'POST', null ],
-            [ LibEnumName::HTTP_METHOD, 'HOGEHOGE', 'HOGEHOGE', 'InvalidArgumentException' ],
-            [ LibEnumName::VARIABLE, 'INTEGER', Variable::INTEGER, null ],
-            [ LibEnumName::VARIABLE, 'STRING', Variable::STRING, null ],
-            [ LibEnumName::VARIABLE, 'VECTOR', 'VECTOR', 'InvalidArgumentException' ],
+            [ LibSupervisor::ENUM_CHARSET, 'ASCII', 'ASCII', null ],
+            [ LibSupervisor::ENUM_CHARSET, 'UTF8', 'UTF-8', null ],
+            [ LibSupervisor::ENUM_CHARSET, 'EUC_JP', 'EUC-JP', 'InvalidArgumentException' ],
+            [ LibSupervisor::ENUM_VARIABLE, 'INTEGER', Variable::INTEGER, null ],
+            [ LibSupervisor::ENUM_VARIABLE, 'STRING', Variable::STRING, null ],
+            [ LibSupervisor::ENUM_VARIABLE, 'VECTOR', 'VECTOR', 'InvalidArgumentException' ],
         ];
     }
     
@@ -28,19 +25,21 @@ class TypeEnumTest extends \PHPUnit_Framework_TestCase
     {
         isset($exception) && $this->setExpectedException($exception);
         
-        $this->assertSame($value, (new $enum_name($value))->getValue());
-        $this->assertSame($value, (string)(new $enum_name($value)));
-        $this->assertSame($value, $enum_name::{$key}()->getValue());
-        $this->assertSame($value, (string)$enum_name::{$key}());
-        $this->assertSame($value, $enum_name::init($value)->getValue());
-        $this->assertSame($value, (string)$enum_name::init($value));
+        $full_name = LibSupervisor::getEnumFullName($enum_name);
+        
+        $this->assertSame($value, (new $full_name($value))->getValue());
+        $this->assertSame($value, (string)(new $full_name($value)));
+        $this->assertSame($value, $full_name::{$key}()->getValue());
+        $this->assertSame($value, (string)$full_name::{$key}());
+        $this->assertSame($value, $full_name::init($value)->getValue());
+        $this->assertSame($value, (string)$full_name::init($value));
     }
     
     public function providerInitMethod()
     {
         return [
-            [ LibEnumName::VARIABLE, Variable::INTEGER(), Variable::INTEGER ],
-            [ LibEnumName::VARIABLE, new Variable(Variable::INTEGER), Variable::INTEGER ],
+            [ LibSupervisor::ENUM_VARIABLE, Variable::INTEGER(), Variable::INTEGER ],
+            [ LibSupervisor::ENUM_VARIABLE, new Variable(Variable::INTEGER), Variable::INTEGER ],
         ];
     }
     
@@ -49,7 +48,9 @@ class TypeEnumTest extends \PHPUnit_Framework_TestCase
      */
     public function testInitMethod($enum_name, $instance, $expected)
     {
-        $this->assertSame($expected, $enum_name::init($instance)->getValue());
-        $this->assertSame($expected, (string)$enum_name::init($instance));
+        $full_name = LibSupervisor::getEnumFullName($enum_name);
+        
+        $this->assertSame($expected, $full_name::init($instance)->getValue());
+        $this->assertSame($expected, (string)$full_name::init($instance));
     }
 }

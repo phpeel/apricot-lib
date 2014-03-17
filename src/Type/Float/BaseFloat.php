@@ -1,7 +1,7 @@
 <?php
 namespace Phpingguo\ApricotLib\Type\Float;
 
-use Phpingguo\ApricotLib\LibrarySupervisor;
+use Phpingguo\ApricotLib\LibSupervisor;
 use Phpingguo\ApricotLib\Type\DefaultValueContainer;
 use Phpingguo\ApricotLib\Type\IScalarValue;
 use Phpingguo\ApricotLib\Type\TraitScalarValue;
@@ -48,7 +48,7 @@ abstract class BaseFloat implements IScalarValue
     final public static function getInstance()
     {
         // 初期値設定の再ロードは行わない
-        return LibrarySupervisor::getDiContainer()->get(get_called_class());
+        return LibSupervisor::getDiContainer()->get(get_called_class());
     }
     
     // ---------------------------------------------------------------------------------------------
