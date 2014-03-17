@@ -120,5 +120,5 @@ final class String
         }
         
         return "{$namespace}{$enum_name}";
-    }    
+    }
 }
