@@ -2,7 +2,6 @@
 namespace Phpingguo\ApricotLib;
 
 use Phpingguo\ApricotLib\Common\String as CString;
-use Phpingguo\ApricotLib\Common\String;
 use Phpingguo\CitronDI\AuraDIWrapper;
 
 /**
@@ -64,7 +63,7 @@ final class LibSupervisor
      */
     public static function getEnumFullName($enum_name)
     {
-        if (String::isValid($enum_name, true) === false) {
+        if (CString::isValid($enum_name, true) === false) {
             throw new \InvalidArgumentException('$enum_name only accepts string type.');
         }
         
