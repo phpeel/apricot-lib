@@ -2,7 +2,6 @@
 namespace Phpingguo\ApricotLib\Tests\Common;
 
 use Phpingguo\ApricotLib\Common\String;
-use Phpingguo\ApricotLib\Enums\LibEnumName;
 use Phpingguo\ApricotLib\LibSupervisor;
 
 class StringTest extends \PHPUnit_Framework_TestCase
@@ -10,8 +9,8 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function providerRemoveNamespace()
     {
         return [
-            [ LibEnumName::VARIABLE, 'Variable' ],
-            [ LibEnumName::CHARSET, 'Charset' ],
+            [ LibSupervisor::getEnumFullName(LibSupervisor::ENUM_VARIABLE), 'Variable' ],
+            [ LibSupervisor::getEnumFullName(LibSupervisor::ENUM_CHARSET), 'Charset' ],
             [ 'stdClass', 'stdClass' ],
             [ '', '' ],
             [ true, '' ],
