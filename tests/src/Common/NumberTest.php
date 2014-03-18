@@ -61,6 +61,62 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         );
     }
     
+    public function providerIsValidFloat()
+    {
+        return [
+            [ [ 0.0, 0.1, 0.2, 0.3, 0.4 ], true ],
+            [ [ -0.2, -0.1, 0.0, -0.1, -0.2 ], true ],
+            [ [ -0.4, -0.3, -0.2, -0.1, 0.0 ], true ],
+            [ [ '0.0', '0.1', '0.2', '0.3', '0.4' ], false ],
+            [ [ '-0.4', '-0.3', '-0.2', '-0.1', '0.0' ], false ],
+            [ [ true, false, true, false, true ], false ],
+            [ [ 'a', 'b', 'c', 'd', 'e' ], false ],
+            [ [ null, null, null, null, null ], false ],
+            [ [ new \stdClass(), new \stdClass(), new \stdClass() ], false ],
+            [ [ [], [], [], [], [] ], false ],
+            [ [ true, false, null, [], new \stdClass() ], false ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerIsValidFloat
+     */
+    public function testIsValidFloat($values, $expected)
+    {
+        $this->assertSame(
+            $expected,
+            call_user_func_array('Phpingguo\ApricotLib\Common\Number::isValidFloat', $values)
+        );
+    }
+    
+    public function providerIsValidUFloat()
+    {
+        return [
+            [ [ 0.0, 0.1, 0.2, 0.3, 0.4 ], true ],
+            [ [ -0.2, -0.1, 0.0, -0.1, -0.2 ], false ],
+            [ [ -0.4, -0.3, -0.2, -0.1, 0.0 ], false ],
+            [ [ '0.0', '0.1', '0.2', '0.3', '0.4' ], false ],
+            [ [ '-0.4', '-0.3', '-0.2', '-0.1', '0.0' ], false ],
+            [ [ true, false, true, false, true ], false ],
+            [ [ 'a', 'b', 'c', 'd', 'e' ], false ],
+            [ [ null, null, null, null, null ], false ],
+            [ [ new \stdClass(), new \stdClass(), new \stdClass() ], false ],
+            [ [ [], [], [], [], [] ], false ],
+            [ [ true, false, null, [], new \stdClass() ], false ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerIsValidUFloat
+     */
+    public function testIsValidUFloat($values, $expected)
+    {
+        $this->assertSame(
+            $expected,
+            call_user_func_array('Phpingguo\ApricotLib\Common\Number::isValidUFloat', $values)
+        );
+    }
+    
     public function providerIsInInterval()
     {
         return [
