@@ -46,6 +46,42 @@ final class Number
     }
 
     /**
+     * 一つ以上の入力値が全て符号あり小数点数型の値であるかどうかを調べます。
+     * このメソッドは、小数点数の文字列を文字列とみなし false を返します。
+     * 
+     * @param mixed $values 一つ以上の調べる入力値
+     * 
+     * @return Boolean 全ての入力値が符号あり小数点数型である場合は true。それ以外の場合は false。
+     */
+    public static function isValidFloat($values)
+    {
+        return General::checkValueValid(
+            func_get_args(),
+            function ($value) {
+                return is_float($value);
+            }
+        );
+    }
+
+    /**
+     * 一つ以上の入力値が全て符号なし小数点数型の値であるかどうかを調べます。
+     * このメソッドは、小数点数の文字列を文字列とみなし false を返します。
+     * 
+     * @param mixed $values 一つ以上の調べる入力値
+     * 
+     * @return Boolean 全ての入力値が符号なし小数点数型である場合は true。それ以外の場合は false。
+     */
+    public static function isValidUFloat($values)
+    {
+        return General::checkValueValid(
+            func_get_args(),
+            function ($value) {
+                return (is_float($value) && $value >= 0);
+            }
+        );
+    }
+
+    /**
      * 一つ以上の入力値が符号ありの実数値であるかどうかを調べます。
      * 
      * @param mixed $values 一つ以上の調べる入力値
