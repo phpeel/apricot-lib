@@ -73,6 +73,19 @@ final class Arrays
     }
     
     /**
+     * 入力配列に指定したキーが含まれているかどうかを調べます。
+     * 
+     * @param Array $list         キーの有無を調べる配列
+     * @param String|Integer $key 有無を調べるキーの名前
+     * 
+     * @return Boolean 入力配列に指定したキーが含まれる場合は true。それ以外の場合は false。
+     */
+    public static function isContain($list, $key)
+    {
+        return (static::isValidKey($key) && is_array($list) && array_key_exists($key, $list));
+    }
+    
+    /**
      * 入力配列に指定したキーの要素が存在するかどうかを調べます。
      * 
      * @param Array $list         キーの存在を調べる配列
@@ -80,7 +93,7 @@ final class Arrays
      * 
      * @return Boolean 入力配列に指定したキーの要素が存在する場合は true。それ以外の場合は false。
      */
-    public static function isExistKey($list, $key)
+    public static function isExist($list, $key)
     {
         return (static::isValidKey($key) && is_array($list) && isset($list[$key]));
     }
@@ -96,9 +109,9 @@ final class Arrays
      */
     public static function getValue($list, $key, $default = null)
     {
-        return static::isExistKey($list, $key) ? $list[$key] : $default;
+        return static::isExist($list, $key) ? $list[$key] : $default;
     }
-
+    
     /**
      * 入力配列から指定したキーに該当する値を検索してその値を取得します。
      * 
@@ -119,7 +132,7 @@ final class Arrays
         foreach ($keys as $key_value) {
             $temp_key = trim(mb_convert_kana($key_value, 's', Charset::UTF8));
             
-            if (static::isExistKey($temp, $temp_key) === false) {
+            if (static::isExist($temp, $temp_key) === false) {
                 $result = $default;
                 
                 break;
@@ -220,7 +233,7 @@ final class Arrays
      */
     public static function removeWhen($conditions, array &$list, $key)
     {
-        if ($conditions !== true || static::isExistKey($list, $key) === false) {
+        if ($conditions !== true || static::isContain($list, $key) === false) {
             return false;
         }
         
