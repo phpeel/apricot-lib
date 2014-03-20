@@ -1,6 +1,8 @@
 <?php
 namespace Phpingguo\ApricotLib\Type\Enum;
 
+use Phpingguo\ApricotLib\Common\String;
+
 /**
  * PHP で列挙型を疑似的に再現する抽象クラスです。
  * 
@@ -12,7 +14,8 @@ abstract class Enum
     // ---------------------------------------------------------------------------------------------
     // private fields
     // ---------------------------------------------------------------------------------------------
-    private $scalar;
+    private $name   = '';
+    private $scalar = null;
     
     // ---------------------------------------------------------------------------------------------
     // constructor
@@ -29,11 +32,13 @@ abstract class Enum
     {
         $obj_reflection = new \ReflectionObject($this);
         $constants      = $obj_reflection->getConstants();
+        $enum_key_name  = array_search($value, $constants);
         
-        if (in_array($value, $constants, true) === false) {
+        if (String::isValid($enum_key_name) === false) {
             throw new \InvalidArgumentException('This class not defined constant value.' . $value);
         }
         
+        $this->name   = $enum_key_name;
         $this->scalar = $value;
     }
     
@@ -52,9 +57,8 @@ abstract class Enum
     final public static function __callStatic($value, $args)
     {
         $class = get_called_class();
-        $const = constant($class . '::' . $value);
         
-        return new $class($const);
+        return new $class(constant("{$class}::{$value}"));
     }
     
     /**
@@ -79,6 +83,17 @@ abstract class Enum
             isset($default_value) ? $default_value : $value);
         
         return new $class($scalar);
+    }
+
+    /**
+     * 要素の定数としての名前を取得します。
+     * 
+     * @final [オーバーライド禁止]
+     * @return String 要素の定数としての名前
+     */
+    final public function getName()
+    {
+        return $this->name;
     }
     
     /**
