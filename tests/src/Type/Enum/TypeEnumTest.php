@@ -1,6 +1,7 @@
 <?php
 namespace Phpingguo\ApricotLib\Tests\Type\Enum;
 
+use Phpingguo\ApricotLib\Enums\Charset;
 use Phpingguo\ApricotLib\Enums\Variable;
 use Phpingguo\ApricotLib\LibSupervisor;
 
@@ -52,5 +53,23 @@ class TypeEnumTest extends \PHPUnit_Framework_TestCase
         
         $this->assertSame($expected, $full_name::init($instance)->getValue());
         $this->assertSame($expected, (string)$full_name::init($instance));
+    }
+    
+    public function providerGetName()
+    {
+        return [
+            [ LibSupervisor::ENUM_CHARSET, Charset::ASCII, 'ASCII' ],
+            [ LibSupervisor::ENUM_VARIABLE, Variable::INTEGER, 'INTEGER' ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerGetName
+     */
+    public function testGetName($enum_name, $value, $expected)
+    {
+        $full_name = LibSupervisor::getEnumFullName($enum_name);
+        
+        $this->assertSame($expected, (new $full_name($value))->getName());
     }
 }
