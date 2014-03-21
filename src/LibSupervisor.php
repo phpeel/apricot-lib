@@ -63,6 +63,6 @@ final class LibSupervisor
      */
     public static function getEnumFullName($enum_name)
     {
-        return CString::getEnumFullName("Phpingguo\\ApricotLib\\Enums\\", $enum_name);
+        return CString::concat("Phpingguo\\ApricotLib\\Enums\\", $enum_name);
     }
 }

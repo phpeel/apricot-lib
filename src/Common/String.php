@@ -105,20 +105,20 @@ final class String
     }
 
     /**
-     * 列挙型クラスの名前空間付きの完全修飾名を取得します。
+     * 二つの文字列を連結します。
      * 
-     * @param String $namespace 列挙型クラスの所属する名前空間
-     * @param String $enum_name 完全修飾名を取得する列挙型クラスの名前
+     * @param String $front_str 前に連結される文字列
+     * @param String $back_str 後ろに連結される文字列
      *
-     * @throws \InvalidArgumentException 有効な列挙型クラスではなかった場合
-     * @return String 列挙型クラスの名前空間付きの完全修飾名
+     * @throws \InvalidArgumentException 両方のパラメータが有効な列挙型クラスではなかった場合
+     * @return String 連結した文字列
      */
-    public static function getEnumFullName($namespace, $enum_name)
+    public static function concat($front_str, $back_str)
     {
-        if (static::isValid($namespace, true) === false || static::isValid($enum_name, true) === false) {
-            throw new \InvalidArgumentException('$enum_name only accepts string type.');
+        if (static::isValid($front_str, true) === false || static::isValid($back_str, true) === false) {
+            throw new \InvalidArgumentException('All parameters only accepts string type.');
         }
         
-        return "{$namespace}{$enum_name}";
+        return "{$front_str}{$back_str}";
     }
 }
