@@ -6,7 +6,7 @@ namespace Phpingguo\ApricotLib\Type;
  * 
  * @author hiroki sugawara
  */
-trait TraitSignedNumber
+trait TSignedNumber
 {
     // ---------------------------------------------------------------------------------------------
     // private fields

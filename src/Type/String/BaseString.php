@@ -6,7 +6,7 @@ use Phpingguo\ApricotLib\Enums\Charset;
 use Phpingguo\ApricotLib\LibSupervisor;
 use Phpingguo\ApricotLib\Type\DefaultValueContainer;
 use Phpingguo\ApricotLib\Type\IExtendScalarValue;
-use Phpingguo\ApricotLib\Type\TraitScalarValue;
+use Phpingguo\ApricotLib\Type\TScalarValue;
 
 /**
  * フレームワークで使用できる文字列型を表すための基本となる抽象クラスです。
@@ -19,7 +19,7 @@ abstract class BaseString implements IExtendScalarValue
     // ---------------------------------------------------------------------------------------------
     // import trait
     // ---------------------------------------------------------------------------------------------
-    use TraitScalarValue;
+    use TScalarValue;
     
     // ---------------------------------------------------------------------------------------------
     // constructor / destructor

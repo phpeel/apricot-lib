@@ -9,7 +9,7 @@ use Phpingguo\ApricotLib\Common\String;
  * 
  * @author hiroki sugawara
  */
-trait TraitCacheVersion
+trait TCacheVersion
 {
     // ---------------------------------------------------------------------------------------------
     // private fields

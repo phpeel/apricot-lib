@@ -5,8 +5,8 @@ use Phpingguo\ApricotLib\Common\Number;
 use Phpingguo\ApricotLib\LibSupervisor;
 use Phpingguo\ApricotLib\Type\DefaultValueContainer;
 use Phpingguo\ApricotLib\Type\IScalarValue;
-use Phpingguo\ApricotLib\Type\TraitScalarValue;
-use Phpingguo\ApricotLib\Type\TraitSignedNumber;
+use Phpingguo\ApricotLib\Type\TScalarValue;
+use Phpingguo\ApricotLib\Type\TSignedNumber;
 
 /**
  * フレームワークで使用できる整数型を表すための基本となる抽象クラスです。
@@ -19,7 +19,7 @@ abstract class BaseInteger implements IScalarValue
     // ---------------------------------------------------------------------------------------------
     // import trait
     // ---------------------------------------------------------------------------------------------
-    use TraitScalarValue, TraitSignedNumber;
+    use TScalarValue, TSignedNumber;
     
     // ---------------------------------------------------------------------------------------------
     // constructor / destructor
