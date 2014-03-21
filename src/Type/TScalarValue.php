@@ -6,7 +6,7 @@ namespace Phpingguo\ApricotLib\Type;
  * 
  * @author hiroki sugawara
  */
-trait TraitScalarValue
+trait TScalarValue
 {
     // ---------------------------------------------------------------------------------------------
     // private fields
