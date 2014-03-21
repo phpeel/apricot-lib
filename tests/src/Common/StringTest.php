@@ -168,6 +168,6 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         isset($exception) && $this->setExpectedException($exception);
         
-        $this->assertSame($expected, String::getEnumFullName($namespace, $enum_name));
+        $this->assertSame($expected, String::concat($namespace, $enum_name));
     }
 }
