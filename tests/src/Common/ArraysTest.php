@@ -159,6 +159,25 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, Arrays::findValue($list, $find, $default));
     }
     
+    public function providerPutValue()
+    {
+        return [
+            [ [], '1=>2=>name', '1=>2=>name', 'hoge hoge', null, 'hoge hoge' ],
+            [ [], '1 => 2 => name', '1=>2=>name', 'hoge hoge', null, 'hoge hoge' ],
+            [ [ 1 => [ 3 => [ 'name' => 'foo bar' ] ] ], '1=>2=>name', '1=>3=>name', 'hoge hoge', null, 'foo bar' ],
+            [ [ 1 => [ 3 => [ 'name' => 'foo bar' ] ] ], '1=>2=>name', '1=>2=>name', 'hoge hoge', null, 'hoge hoge' ]
+        ];
+    }
+
+    /**
+     * @dataProvider providerPutValue
+     */
+    public function testPutValue($list, $put_key, $find_key, $item, $default, $expected)
+    {
+        $this->assertTrue(Arrays::putValue($list, $put_key, $item));
+        $this->assertSame($expected, Arrays::findValue($list, $find_key, $default));
+    }
+    
     public function providerAddEach()
     {
         $closure = function () {
