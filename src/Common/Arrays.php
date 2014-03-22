@@ -120,14 +120,17 @@ final class Arrays
      * 連想配列にアクセスする場合は、配列を使用する。<br>
      * (例) $list = [ 1 => [ 2 => 'name' => 'abc' ] ] の場合は、findValue($list, '1 => 2 => name');
      * @param mixed $default [初期値=null] 見つからなかった場合に使用する値
+     * @param mixed $delimiter [初期値='=>'] 他次元配列アクセス時に使うキー名に含めるデリミタ。<br>
+     * (例) 「.」をデリミタに指定する場合は、findValue($list, '1=>2=>name', null, '.');ではなく、
+     * findValue($list, '1.2.name', null, '.');
      * 
      * @return mixed 検索したキーの値が存在する場合はその値。それ以外は引数 $default の値。
      */
-    public static function findValue(array $list, $key, $default = null)
+    public static function findValue(array $list, $key, $default = null, $delimiter = '=>')
     {
         $temp   = $list;
         $result = $default;
-        $keys   = explode('=>', $key);
+        $keys   = explode($delimiter, $key);
         
         foreach ($keys as $key_value) {
             $temp_key = trim(mb_convert_kana($key_value, 's', Charset::UTF8));
