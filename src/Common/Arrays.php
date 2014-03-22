@@ -149,6 +149,38 @@ final class Arrays
     }
     
     /**
+     * 入力配列に指定した―キーとそれに紐付く値を設定します。
+     * 
+     * @param Array $list                     キーと値を追加する入力配列
+     * @param String|Integer $key             入力配列に設定するキーの名前
+     * @param mixed $item                     キーに紐付く値
+     * @param String $delimiter [初期値='=>'] 多次元配列アクセス用キー名の場合に使うデリミタ
+     * 
+     * @return Boolean 値を設定できた場合は true。それ以外の場合は false。
+     */
+    public static function putValue(array &$list, $key, $item, $delimiter = '=>')
+    {
+        $keys     = array_reverse(explode($delimiter, $key));
+        $put_list = null;
+        
+        static::eachWalk(
+            $keys,
+            function ($list_key) use (&$put_list, $item) {
+                $temp_key = trim(mb_convert_kana($list_key, 's', Charset::UTF8));
+                $put_list = is_null($put_list) ? [ $temp_key => $item ] : [ $temp_key => $put_list ];
+            }
+        );
+        
+        return static::copyWhen(
+            static::isValid($put_list),
+            $list,
+            function () use ($list, $put_list) {
+                return array_replace_recursive($list, $put_list);
+            }
+        );
+    }
+    
+    /**
      * 入力配列の全ての要素に対してユーザー関数を適用します。
      * 
      * @param Array $list                          ユーザー関数を適用する入力配列
