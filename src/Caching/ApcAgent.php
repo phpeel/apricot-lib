@@ -136,8 +136,8 @@ final class ApcAgent
     /**
      * キャッシュデータから指定したキーとそれに紐付く値を削除します。
      * 
-     * @param String $group_name        キーのグループ名
-     * @param String $key [初期値=null] 削除するキーの名前
+     * @param String $group_name キーのグループ名
+     * @param String $key        削除するキーの名前
      * 
      * @return Boolean キャッシュから削除できた場合は true。それ以外の場合は false。
      */
