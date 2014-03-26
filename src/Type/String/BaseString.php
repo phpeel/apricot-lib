@@ -71,7 +71,7 @@ abstract class BaseString implements IExtendScalarValue
      */
     public function isValue(&$check_value)
     {
-        return (is_null($check_value) === false && is_numeric($check_value) === false && is_string($check_value));
+        return (is_numeric($check_value) === false && is_string($check_value));
     }
     
     /**
