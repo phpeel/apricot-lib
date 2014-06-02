@@ -136,6 +136,44 @@ class StringTest extends \PHPUnit_Framework_TestCase
         
         $this->assertSame($expected, String::unionDirectoryPath($base_path, $sub_directory));
     }
+
+    public function providerUnionFilePath()
+    {
+        return [
+            [ 'composer.json', null ],
+            [ 'hogehoge', 'RuntimeException' ],
+            [ '', 'RuntimeException' ],
+            [ null, 'RuntimeException' ],
+            [ true, 'RuntimeException' ],
+            [ false, 'RuntimeException' ],
+            [ 0, 'RuntimeException' ],
+            [ 0.0, 'RuntimeException' ],
+            [ 0.1, 'RuntimeException' ],
+            [ '0', 'RuntimeException' ],
+            [ '0.0', 'RuntimeException' ],
+            [ '0.1', 'RuntimeException' ],
+            [ [], 'RuntimeException' ],
+            [ new \stdClass(), 'RuntimeException' ]
+        ];
+    }
+
+    /**
+     * @dataProvider providerUnionFilePath
+     */
+    public function testUnionFilePath($sub_filename, $exception)
+    {
+        isset($exception) && $this->setExpectedException($exception);
+
+        $base_path = LibSupervisor::getBasePath();
+        $expected  = $base_path;
+
+        if (String::isValid($sub_filename)) {
+            $full_path = realpath($base_path . DIRECTORY_SEPARATOR . $sub_filename);
+            is_file($full_path) && $expected = $full_path;
+        }
+
+        $this->assertSame($expected, String::unionFilePath($base_path, $sub_filename));
+    }
     
     public function providerGetEnumFullName()
     {
