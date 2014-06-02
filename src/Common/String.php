@@ -94,17 +94,56 @@ final class String
      */
     public static function unionDirectoryPath($parent_path, $sub_directory = null)
     {
-        if (static::isValid($sub_directory)) {
-            $full_path = realpath($parent_path . DIRECTORY_SEPARATOR . $sub_directory);
+        $full_path = static::getRealPath($parent_path, $sub_directory);
 
-            if ($full_path !== false) {
-                return $full_path;
-            }
-        } else if (is_null($sub_directory)) {
-            return realpath($parent_path);
+        if ($full_path !== false && is_dir($full_path)) {
+            return $full_path;
         }
 
         throw new \RuntimeException('Directory was not to be found.');
+    }
+
+    /**
+     * ディレクトリのファイルパスにファイルの名前を結合したものを取得します。
+     *
+     * @param String $parent_path            結合先のディレクトリのファイルパス
+     * @param String $sub_file [初期値=false] 結合するファイルの名前
+     *
+     * @throws \RuntimeException 存在しないファイルを指定した場合
+     * @return String ディレクトリのファイルパスにファイルの名前
+     */
+    public static function unionFilePath($parent_path, $sub_file = null)
+    {
+        $full_path = static::getRealPath($parent_path, $sub_file);
+
+        if ($full_path !== false && is_file($full_path)) {
+            return $full_path;
+        }
+
+        throw new \RuntimeException('File was not to be found.');
+    }
+
+    /**
+     * 指定したディレクトリのパスとそれに属するファイルおよびディレクトリから絶対パスを取得します。
+     *
+     * @param String $parent_directory 取得する絶対パスの親ディレクトリのパス
+     * @param String $child_item       親ディレクトリに属するファイル及びディレクトリの名前
+     *
+     * @return String|Boolean 成功した場合は正規化した絶対パス。失敗した場合は false。
+     */
+    public static function getRealPath($parent_directory, $child_item)
+    {
+        $full_path = false;
+
+        if (static::isValid($parent_directory)) {
+            if (static::isValid($child_item)) {
+                $full_path = realpath($parent_directory . DIRECTORY_SEPARATOR . $child_item);
+            } else if (is_null($child_item)) {
+                $full_path = realpath($child_item);
+            }
+        }
+
+        return $full_path;
     }
 
     /**
