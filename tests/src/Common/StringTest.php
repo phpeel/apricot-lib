@@ -102,34 +102,36 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function providerUnionDirectoryPath()
     {
         return [
-            [ 'tests' ],
-            [ 'hogehoge' ],
-            [ '' ],
-            [ null ],
-            [ true ],
-            [ false ],
-            [ 0 ],
-            [ 0.0 ],
-            [ 0.1 ],
-            [ '0' ],
-            [ '0.0' ],
-            [ '0.1' ],
-            [ [] ],
-            [ new \stdClass() ]
+            [ 'tests', null ],
+            [ 'hogehoge', 'RuntimeException' ],
+            [ '', 'RuntimeException' ],
+            [ null, null ],
+            [ true, 'RuntimeException' ],
+            [ false, 'RuntimeException' ],
+            [ 0, 'RuntimeException' ],
+            [ 0.0, 'RuntimeException' ],
+            [ 0.1, 'RuntimeException' ],
+            [ '0', 'RuntimeException' ],
+            [ '0.0', 'RuntimeException' ],
+            [ '0.1', 'RuntimeException' ],
+            [ [], 'RuntimeException' ],
+            [ new \stdClass(), 'RuntimeException' ]
         ];
     }
 
     /**
      * @dataProvider providerUnionDirectoryPath
      */
-    public function testUnionDirectoryPath($sub_directory)
+    public function testUnionDirectoryPath($sub_directory, $exception)
     {
+        isset($exception) && $this->setExpectedException($exception);
+
         $base_path = LibSupervisor::getBasePath();
         $expected  = $base_path;
         
         if (String::isValid($sub_directory)) {
             $full_path = realpath($base_path . DIRECTORY_SEPARATOR . $sub_directory);
-            $expected  = is_dir($full_path) ? $full_path : $base_path;
+            is_dir($full_path) && $expected = $full_path;
         }
         
         $this->assertSame($expected, String::unionDirectoryPath($base_path, $sub_directory));
