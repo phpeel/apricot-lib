@@ -139,7 +139,7 @@ final class String
             if (static::isValid($child_item)) {
                 $full_path = realpath($parent_directory . DIRECTORY_SEPARATOR . $child_item);
             } else if (is_null($child_item)) {
-                $full_path = realpath($child_item);
+                $full_path = realpath($parent_directory);
             }
         }
 
