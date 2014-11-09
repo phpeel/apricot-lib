@@ -1,8 +1,8 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Common;
+namespace Phpeel\ApricotLib\Tests\Common;
 
-use Phpingguo\ApricotLib\Common\String;
-use Phpingguo\ApricotLib\LibSupervisor;
+use Phpeel\ApricotLib\Common\String;
+use Phpeel\ApricotLib\LibSupervisor;
 
 class StringTest extends \PHPUnit_Framework_TestCase
 {
@@ -177,11 +177,11 @@ class StringTest extends \PHPUnit_Framework_TestCase
     
     public function providerGetEnumFullName()
     {
-        $enum_namespace = 'Phpingguo\\ApricotLib\\Enums\\';
+        $enum_namespace = 'Phpeel\\ApricotLib\\Enums\\';
         
         return [
-            [ $enum_namespace, LibSupervisor::ENUM_CHARSET, 'Phpingguo\ApricotLib\Enums\Charset', null ],
-            [ $enum_namespace, LibSupervisor::ENUM_VARIABLE, 'Phpingguo\ApricotLib\Enums\Variable', null ],
+            [ $enum_namespace, LibSupervisor::ENUM_CHARSET, 'Phpeel\ApricotLib\Enums\Charset', null ],
+            [ $enum_namespace, LibSupervisor::ENUM_VARIABLE, 'Phpeel\ApricotLib\Enums\Variable', null ],
             [ $enum_namespace, null, null, 'InvalidArgumentException' ],
             [ null, LibSupervisor::ENUM_CHARSET, null, 'InvalidArgumentException' ],
             [ null, LibSupervisor::ENUM_VARIABLE, null, 'InvalidArgumentException' ],

@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Common;
+namespace Phpeel\ApricotLib\Common;
 
 use Symfony\Component\Yaml\Parser;
 

@@ -1,7 +1,7 @@
 <?php
-namespace Phpingguo\ApricotLib\Type\Enum;
+namespace Phpeel\ApricotLib\Type\Enum;
 
-use Phpingguo\ApricotLib\Common\String;
+use Phpeel\ApricotLib\Common\String;
 
 /**
  * PHP で列挙型を疑似的に再現する抽象クラスです。

@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Type\String;
+namespace Phpeel\ApricotLib\Type\String;
 
 /**
  * フレームワークで使用できる厳しい制限のある文字列型を表すクラスです。

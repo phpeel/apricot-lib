@@ -1,7 +1,7 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Common;
+namespace Phpeel\ApricotLib\Tests\Common;
 
-use Phpingguo\ApricotLib\Common\Arrays;
+use Phpeel\ApricotLib\Common\Arrays;
 
 class ArraysTest extends \PHPUnit_Framework_TestCase
 {

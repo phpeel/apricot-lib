@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Type;
+namespace Phpeel\ApricotLib\Type;
 
 /**
  * フレームワークでのスカラー値オブジェクトを扱うための基本処理を提供するトレイトです。
@@ -21,7 +21,7 @@ trait TScalarValue
     // ---------------------------------------------------------------------------------------------
     /**
      * @final [オーバーライド禁止]
-     * @see \Phpingguo\Exts\Lib\Type\IScalarValue::getDefaultValue()
+     * @see \Phpeel\Exts\Lib\Type\IScalarValue::getDefaultValue()
      */
     final public function getDefaultValue()
     {

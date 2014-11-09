@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Type\Enum;
+namespace Phpeel\ApricotLib\Type\Enum;
 
 /**
  * 列挙型クラスの値からクラスを取得する機能を持つクラスです。

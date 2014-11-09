@@ -1,8 +1,8 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Common;
+namespace Phpeel\ApricotLib\Tests\Common;
 
-use Phpingguo\ApricotLib\Common\General;
-use Phpingguo\ApricotLib\LibSupervisor;
+use Phpeel\ApricotLib\Common\General;
+use Phpeel\ApricotLib\LibSupervisor;
 
 class GeneralTest extends \PHPUnit_Framework_TestCase
 {

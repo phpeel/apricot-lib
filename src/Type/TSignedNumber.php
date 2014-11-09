@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Type;
+namespace Phpeel\ApricotLib\Type;
 
 /**
  * 数値の符号の取り扱いに関する機能を集めたトレイトです。

@@ -1,12 +1,12 @@
 <?php
-namespace Phpingguo\ApricotLib\Type\Int;
+namespace Phpeel\ApricotLib\Type\Int;
 
-use Phpingguo\ApricotLib\Common\Number;
-use Phpingguo\ApricotLib\LibSupervisor;
-use Phpingguo\ApricotLib\Type\DefaultValueContainer;
-use Phpingguo\ApricotLib\Type\IScalarValue;
-use Phpingguo\ApricotLib\Type\TScalarValue;
-use Phpingguo\ApricotLib\Type\TSignedNumber;
+use Phpeel\ApricotLib\Common\Number;
+use Phpeel\ApricotLib\LibSupervisor;
+use Phpeel\ApricotLib\Type\DefaultValueContainer;
+use Phpeel\ApricotLib\Type\IScalarValue;
+use Phpeel\ApricotLib\Type\TScalarValue;
+use Phpeel\ApricotLib\Type\TSignedNumber;
 
 /**
  * フレームワークで使用できる整数型を表すための基本となる抽象クラスです。
@@ -57,7 +57,7 @@ abstract class BaseInteger implements IScalarValue
     // ---------------------------------------------------------------------------------------------
     /**
      * @final [オーバーライド禁止]
-     * @see \Phpingguo\Exts\Lib\Type\IScalarValue::getValue()
+     * @see \Phpeel\Exts\Lib\Type\IScalarValue::getValue()
      */
     final public function getValue($base_value = null)
     {
@@ -72,7 +72,7 @@ abstract class BaseInteger implements IScalarValue
     
     /**
      * @final [オーバーライド禁止]
-     * @see \Phpingguo\Exts\Lib\Type\IScalarValue::isValue()
+     * @see \Phpeel\Exts\Lib\Type\IScalarValue::isValue()
      */
     final public function isValue(&$check_value)
     {

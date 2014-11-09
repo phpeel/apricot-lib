@@ -1,12 +1,12 @@
 <?php
-namespace Phpingguo\ApricotLib\Type\String;
+namespace Phpeel\ApricotLib\Type\String;
 
-use Phpingguo\ApricotLib\Common\String as CString;
-use Phpingguo\ApricotLib\Enums\Charset;
-use Phpingguo\ApricotLib\LibSupervisor;
-use Phpingguo\ApricotLib\Type\DefaultValueContainer;
-use Phpingguo\ApricotLib\Type\IExtendScalarValue;
-use Phpingguo\ApricotLib\Type\TScalarValue;
+use Phpeel\ApricotLib\Common\String as CString;
+use Phpeel\ApricotLib\Enums\Charset;
+use Phpeel\ApricotLib\LibSupervisor;
+use Phpeel\ApricotLib\Type\DefaultValueContainer;
+use Phpeel\ApricotLib\Type\IExtendScalarValue;
+use Phpeel\ApricotLib\Type\TScalarValue;
 
 /**
  * フレームワークで使用できる文字列型を表すための基本となる抽象クラスです。
@@ -53,7 +53,7 @@ abstract class BaseString implements IExtendScalarValue
     // public member methods
     // ---------------------------------------------------------------------------------------------
     /**
-     * @see \Phpingguo\Exts\Lib\Type\IScalarValue::getValue()
+     * @see \Phpeel\Exts\Lib\Type\IScalarValue::getValue()
      */
     final public function getValue($base_value)
     {
@@ -67,7 +67,7 @@ abstract class BaseString implements IExtendScalarValue
     }
     
     /**
-     * @see \Phpingguo\Exts\Lib\Type\IScalarValue::isValue()
+     * @see \Phpeel\Exts\Lib\Type\IScalarValue::isValue()
      */
     public function isValue(&$check_value)
     {
@@ -75,7 +75,7 @@ abstract class BaseString implements IExtendScalarValue
     }
     
     /**
-     * @see \Phpingguo\Exts\Lib\Type\IExtendScalarValue::isValid()
+     * @see \Phpeel\Exts\Lib\Type\IExtendScalarValue::isValid()
      */
     final public function isValid(&$check_value)
     {

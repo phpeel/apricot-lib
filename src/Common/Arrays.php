@@ -1,7 +1,7 @@
 <?php
-namespace Phpingguo\ApricotLib\Common;
+namespace Phpeel\ApricotLib\Common;
 
-use Phpingguo\ApricotLib\Enums\Charset;
+use Phpeel\ApricotLib\Enums\Charset;
 
 /**
  * 配列操作を拡張するためのクラスです。

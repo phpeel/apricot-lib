@@ -1,8 +1,8 @@
 <?php
-namespace Phpingguo\ApricotLib\Caching;
+namespace Phpeel\ApricotLib\Caching;
 
-use Phpingguo\ApricotLib\Common\Arrays;
-use Phpingguo\ApricotLib\Common\String;
+use Phpeel\ApricotLib\Common\Arrays;
+use Phpeel\ApricotLib\Common\String;
 
 /**
  * キャッシュデータのバージョン管理を行う機能を提供するトレイトです。

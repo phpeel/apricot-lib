@@ -1,8 +1,8 @@
 <?php
-namespace Phpingguo\ApricotLib;
+namespace Phpeel\ApricotLib;
 
-use Phpingguo\ApricotLib\Common\String as CString;
-use Phpingguo\CitronDI\AuraDIWrapper;
+use Phpeel\ApricotLib\Common\String as CString;
+use Phpeel\CitronDI\AuraDIWrapper;
 
 /**
  * ライブラリを統括するクラスです。
@@ -63,6 +63,6 @@ final class LibSupervisor
      */
     public static function getEnumFullName($enum_name)
     {
-        return CString::concat("Phpingguo\\ApricotLib\\Enums\\", $enum_name);
+        return CString::concat("Phpeel\\ApricotLib\\Enums\\", $enum_name);
     }
 }

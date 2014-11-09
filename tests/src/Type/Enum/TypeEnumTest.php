@@ -1,9 +1,9 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Type\Enum;
+namespace Phpeel\ApricotLib\Tests\Type\Enum;
 
-use Phpingguo\ApricotLib\Enums\Charset;
-use Phpingguo\ApricotLib\Enums\Variable;
-use Phpingguo\ApricotLib\LibSupervisor;
+use Phpeel\ApricotLib\Enums\Charset;
+use Phpeel\ApricotLib\Enums\Variable;
+use Phpeel\ApricotLib\LibSupervisor;
 
 class TypeEnumTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Common;
+namespace Phpeel\ApricotLib\Common;
 
 /**
  * 文字列操作を拡張するためのクラスです。

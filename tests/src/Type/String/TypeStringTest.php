@@ -1,7 +1,7 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Type\String;
+namespace Phpeel\ApricotLib\Tests\Type\String;
 
-use Phpingguo\ApricotLib\Type\String\String;
+use Phpeel\ApricotLib\Type\String\String;
 
 class TypeStringTest extends \PHPUnit_Framework_TestCase
 {
