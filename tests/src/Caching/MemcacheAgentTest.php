@@ -1,7 +1,7 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Caching;
+namespace Phpeel\ApricotLib\Tests\Caching;
 
-use Phpingguo\ApricotLib\Caching\MemcacheAgent;
+use Phpeel\ApricotLib\Caching\MemcacheAgent;
 
 class MemcacheAgentTest extends \PHPUnit_Framework_TestCase
 {

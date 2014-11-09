@@ -5,9 +5,9 @@
 // To execute this test, it is necessary that a value of apc.enable_cli is "1".
 // このテストを実行するためには apc.enable_cli の値が 1 である必要があります。
 // -----------------------------------------------------------------------------
-namespace Phpingguo\ApricotLib\Tests\Caching;
+namespace Phpeel\ApricotLib\Tests\Caching;
 
-use Phpingguo\ApricotLib\Caching\ApcAgent;
+use Phpeel\ApricotLib\Caching\ApcAgent;
 
 class ApcAgentTest extends \PHPUnit_Framework_TestCase
 {
