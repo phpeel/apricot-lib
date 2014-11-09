@@ -1,7 +1,7 @@
 <?php
-namespace Phpingguo\ApricotLib\Enums;
+namespace Phpeel\ApricotLib\Enums;
 
-use Phpingguo\ApricotLib\Type\Enum\Enum;
+use Phpeel\ApricotLib\Type\Enum\Enum;
 
 /**
  * 文字コードセットの種類を示します。
