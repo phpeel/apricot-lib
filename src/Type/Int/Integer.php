@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Type\Int;
+namespace Phpeel\ApricotLib\Type\Int;
 
 /**
  * フレームワークで使用できる整数型を表すクラスです。

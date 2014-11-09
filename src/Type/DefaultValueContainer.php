@@ -1,9 +1,9 @@
 <?php
-namespace Phpingguo\ApricotLib\Type;
+namespace Phpeel\ApricotLib\Type;
 
-use Phpingguo\ApricotLib\Common\General;
-use Phpingguo\ApricotLib\Common\String as CString;
-use Phpingguo\ApricotLib\LibSupervisor;
+use Phpeel\ApricotLib\Common\General;
+use Phpeel\ApricotLib\Common\String as CString;
+use Phpeel\ApricotLib\LibSupervisor;
 
 /**
  * スカラータイプクラスのデフォルト値を管理するクラスです。

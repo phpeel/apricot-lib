@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Type\Float;
+namespace Phpeel\ApricotLib\Type\Float;
 
 /**
  * フレームワークで使用できる符号なし浮動小数点数型を表すクラスです。

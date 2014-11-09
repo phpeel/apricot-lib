@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\ApricotLib\Type;
+namespace Phpeel\ApricotLib\Type;
 
 /**
  * スカラー値を取り扱うクラスの拡張処理を定義したインターフェイスです。

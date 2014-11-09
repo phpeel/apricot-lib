@@ -1,12 +1,12 @@
 <?php
-namespace Phpingguo\ApricotLib\Type\Generics;
+namespace Phpeel\ApricotLib\Type\Generics;
 
-use Phpingguo\ApricotLib\Common\Arrays;
-use Phpingguo\ApricotLib\Common\String;
-use Phpingguo\ApricotLib\Enums\Variable;
-use Phpingguo\ApricotLib\LibSupervisor;
-use Phpingguo\ApricotLib\Type\Enum\EnumClassGenerator as EnumClassGen;
-use Phpingguo\ApricotLib\Type\IScalarValue;
+use Phpeel\ApricotLib\Common\Arrays;
+use Phpeel\ApricotLib\Common\String;
+use Phpeel\ApricotLib\Enums\Variable;
+use Phpeel\ApricotLib\LibSupervisor;
+use Phpeel\ApricotLib\Type\Enum\EnumClassGenerator as EnumClassGen;
+use Phpeel\ApricotLib\Type\IScalarValue;
 
 /**
  * 総称型リストとなるクラスです。
