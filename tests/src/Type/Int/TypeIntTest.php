@@ -1,7 +1,7 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Type\Int;
+namespace Phpeel\ApricotLib\Tests\Type\Int;
 
-use Phpingguo\ApricotLib\Type\Int\Integer;
+use Phpeel\ApricotLib\Type\Int\Integer;
 
 class TypeIntTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,9 +1,9 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Type\Enum;
+namespace Phpeel\ApricotLib\Tests\Type\Enum;
 
-use Phpingguo\ApricotLib\Enums\Variable;
-use Phpingguo\ApricotLib\LibSupervisor;
-use Phpingguo\ApricotLib\Type\Enum\EnumClassGenerator;
+use Phpeel\ApricotLib\Enums\Variable;
+use Phpeel\ApricotLib\LibSupervisor;
+use Phpeel\ApricotLib\Type\Enum\EnumClassGenerator;
 
 class EnumClassGeneratorTest extends \PHPUnit_Framework_TestCase
 {

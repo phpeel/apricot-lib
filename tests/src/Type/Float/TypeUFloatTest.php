@@ -1,7 +1,7 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Type\Float;
+namespace Phpeel\ApricotLib\Tests\Type\Float;
 
-use Phpingguo\ApricotLib\Type\Float\UnsignedFloat;
+use Phpeel\ApricotLib\Type\Float\UnsignedFloat;
 
 class TypeUFloatTest extends \PHPUnit_Framework_TestCase
 {

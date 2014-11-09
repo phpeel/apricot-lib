@@ -1,7 +1,7 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Type\Int;
+namespace Phpeel\ApricotLib\Tests\Type\Int;
 
-use Phpingguo\ApricotLib\Type\Int\UnsignedInt;
+use Phpeel\ApricotLib\Type\Int\UnsignedInt;
 
 class TypeUIntTest extends \PHPUnit_Framework_TestCase
 {

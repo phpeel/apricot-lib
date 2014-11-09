@@ -1,8 +1,8 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Type\Generics;
+namespace Phpeel\ApricotLib\Tests\Type\Generics;
 
-use Phpingguo\ApricotLib\Enums\Variable;
-use Phpingguo\ApricotLib\Type\Generics\GenericList;
+use Phpeel\ApricotLib\Enums\Variable;
+use Phpeel\ApricotLib\Type\Generics\GenericList;
 
 class GenericListTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,7 +24,7 @@ class GenericListTest extends \PHPUnit_Framework_TestCase
         
         $list = new GenericList($type_name, $collection);
         
-        $this->assertInstanceOf('Phpingguo\ApricotLib\Type\Generics\GenericList', $list);
+        $this->assertInstanceOf('Phpeel\ApricotLib\Type\Generics\GenericList', $list);
         $this->assertSame($collection, $list->toArray());
 
         if (isset($key)) {
