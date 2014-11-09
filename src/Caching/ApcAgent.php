@@ -1,8 +1,8 @@
 <?php
-namespace Phpingguo\ApricotLib\Caching;
+namespace Phpeel\ApricotLib\Caching;
 
-use Phpingguo\ApricotLib\Common\Number;
-use Phpingguo\ApricotLib\LibSupervisor;
+use Phpeel\ApricotLib\Common\Number;
+use Phpeel\ApricotLib\LibSupervisor;
 
 /**
  * Alternative PHP Cache によるキャッシュ管理を仲介するクラスです。

@@ -1,11 +1,11 @@
 <?php
-namespace Phpingguo\ApricotLib\Caching;
+namespace Phpeel\ApricotLib\Caching;
 
-use Phpingguo\ApricotLib\Common\Arrays;
-use Phpingguo\ApricotLib\Common\General;
-use Phpingguo\ApricotLib\Common\Number;
-use Phpingguo\ApricotLib\Common\String;
-use Phpingguo\ApricotLib\LibSupervisor;
+use Phpeel\ApricotLib\Common\Arrays;
+use Phpeel\ApricotLib\Common\General;
+use Phpeel\ApricotLib\Common\Number;
+use Phpeel\ApricotLib\Common\String;
+use Phpeel\ApricotLib\LibSupervisor;
 
 /**
  * Memcache によるキャッシュデータ管理を仲介するクラスです。
