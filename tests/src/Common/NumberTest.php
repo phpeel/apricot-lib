@@ -1,7 +1,7 @@
 <?php
-namespace Phpingguo\ApricotLib\Tests\Common;
+namespace Phpeel\ApricotLib\Tests\Common;
 
-use Phpingguo\ApricotLib\Common\Number;
+use Phpeel\ApricotLib\Common\Number;
 
 class NumberTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,7 +29,7 @@ class NumberTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame(
             $expected,
-            call_user_func_array('Phpingguo\ApricotLib\Common\Number::isValidInt', $values)
+            call_user_func_array('Phpeel\ApricotLib\Common\Number::isValidInt', $values)
         );
     }
     
@@ -57,7 +57,7 @@ class NumberTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame(
             $expected,
-            call_user_func_array('Phpingguo\ApricotLib\Common\Number::isValidUInt', $values)
+            call_user_func_array('Phpeel\ApricotLib\Common\Number::isValidUInt', $values)
         );
     }
     
@@ -85,7 +85,7 @@ class NumberTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame(
             $expected,
-            call_user_func_array('Phpingguo\ApricotLib\Common\Number::isValidFloat', $values)
+            call_user_func_array('Phpeel\ApricotLib\Common\Number::isValidFloat', $values)
         );
     }
     
@@ -113,7 +113,7 @@ class NumberTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame(
             $expected,
-            call_user_func_array('Phpingguo\ApricotLib\Common\Number::isValidUFloat', $values)
+            call_user_func_array('Phpeel\ApricotLib\Common\Number::isValidUFloat', $values)
         );
     }
     
