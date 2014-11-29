@@ -4,6 +4,9 @@
 // 
 // To execute this test, it is necessary that a value of apc.enable_cli is "1".
 // このテストを実行するためには apc.enable_cli の値が 1 である必要があります。
+//
+// When testing this class at PHP version 5.5 or after, requires to install APCu instead of APC.
+// PHP 5.5 以降でテストを実施する場合、APCの替わりにAPCuをインストールする必要があります。
 // -----------------------------------------------------------------------------
 namespace Phpeel\ApricotLib\Tests\Caching;
 
