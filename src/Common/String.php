@@ -151,13 +151,14 @@ final class String
      * 
      * @param String $front_str 前に連結される文字列
      * @param String $back_str 後ろに連結される文字列
+     * @param Boolean $is_strict [初期値=true] 数値文字列を文字列として扱わないかどうか
      *
-     * @throws \InvalidArgumentException 両方のパラメータが有効な列挙型クラスではなかった場合
+     * @throws \InvalidArgumentException 両方のパラメータが有効な文字列型クラスではなかった場合
      * @return String 連結した文字列
      */
-    public static function concat($front_str, $back_str)
+    public static function concat($front_str, $back_str, $is_strict = true)
     {
-        if (static::isValid($front_str, true) === false || static::isValid($back_str, true) === false) {
+        if (static::isValid($front_str, $is_strict) === false || static::isValid($back_str, $is_strict) === false) {
             throw new \InvalidArgumentException('All parameters only accepts string type.');
         }
         
