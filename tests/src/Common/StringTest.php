@@ -180,34 +180,44 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $enum_namespace = 'Phpeel\\ApricotLib\\Enums\\';
         
         return [
-            [ $enum_namespace, LibSupervisor::ENUM_CHARSET, 'Phpeel\ApricotLib\Enums\Charset', null ],
-            [ $enum_namespace, LibSupervisor::ENUM_VARIABLE, 'Phpeel\ApricotLib\Enums\Variable', null ],
-            [ $enum_namespace, null, null, 'InvalidArgumentException' ],
-            [ null, LibSupervisor::ENUM_CHARSET, null, 'InvalidArgumentException' ],
-            [ null, LibSupervisor::ENUM_VARIABLE, null, 'InvalidArgumentException' ],
-            [ null, null, null, 'InvalidArgumentException' ],
-            [ true, true, null, 'InvalidArgumentException' ],
-            [ false, false, null, 'InvalidArgumentException' ],
-            [ [], [], null, 'InvalidArgumentException' ],
-            [ [ 'a' ], [ 'a' ], null, 'InvalidArgumentException' ],
-            [ '', '', null, 'InvalidArgumentException' ],
-            [ 0, 0, null, 'InvalidArgumentException' ],
-            [ 0.0, 0.0, null, 'InvalidArgumentException' ],
-            [ 0.1, 0.1, null, 'InvalidArgumentException' ],
-            [ '0', '0', null, 'InvalidArgumentException' ],
-            [ '0.0', '0.0', null, 'InvalidArgumentException' ],
-            [ '0.1', '0.1', null, 'InvalidArgumentException' ],
-            [ new \stdClass(), new \stdClass(), null, 'InvalidArgumentException' ],
+            [ $enum_namespace, LibSupervisor::ENUM_CHARSET, 'Phpeel\ApricotLib\Enums\Charset', true, null ],
+            [ $enum_namespace, LibSupervisor::ENUM_VARIABLE, 'Phpeel\ApricotLib\Enums\Variable', true, null ],
+            [ $enum_namespace, null, null, true, 'InvalidArgumentException' ],
+            [ null, LibSupervisor::ENUM_CHARSET, null, true, 'InvalidArgumentException' ],
+            [ null, LibSupervisor::ENUM_VARIABLE, null, true, 'InvalidArgumentException' ],
+            [ null, null, null, true, 'InvalidArgumentException' ],
+            [ true, true, null, true, 'InvalidArgumentException' ],
+            [ false, false, null, true, 'InvalidArgumentException' ],
+            [ [], [], null, true, 'InvalidArgumentException' ],
+            [ [ 'a' ], [ 'a' ], null, true, 'InvalidArgumentException' ],
+            [ '', '', null, true, 'InvalidArgumentException' ],
+            [ 0, 0, null, true, 'InvalidArgumentException' ],
+            [ 0.0, 0.0, null, true, 'InvalidArgumentException' ],
+            [ 0.1, 0.1, null, true, 'InvalidArgumentException' ],
+            [ '0', '0', null, true, 'InvalidArgumentException' ],
+            [ '0.0', '0.0', null, true, 'InvalidArgumentException' ],
+            [ '0.1', '0.1', null, true, 'InvalidArgumentException' ],
+            [ new \stdClass(), new \stdClass(), null, true, 'InvalidArgumentException' ],
+            [ $enum_namespace, 0, null, false, 'InvalidArgumentException' ],
+            [ $enum_namespace, 0.0, null, false, 'InvalidArgumentException' ],
+            [ $enum_namespace, 0.1, null, false, 'InvalidArgumentException' ],
+            [ $enum_namespace, 1, null, false, 'InvalidArgumentException' ],
+            [ $enum_namespace, 10000, null, false, 'InvalidArgumentException' ],
+            [ $enum_namespace, '0', 'Phpeel\ApricotLib\Enums\0', false, null ],
+            [ $enum_namespace, '0.0', 'Phpeel\ApricotLib\Enums\0.0', false, null ],
+            [ $enum_namespace, '0.1', 'Phpeel\ApricotLib\Enums\0.1', false, null ],
+            [ $enum_namespace, '1', 'Phpeel\ApricotLib\Enums\1', false, null ],
+            [ $enum_namespace, '10000', 'Phpeel\ApricotLib\Enums\10000', false, null ],
         ];
     }
 
     /**
      * @dataProvider providerGetEnumFullName
      */
-    public function testGetEnumFullName($namespace, $enum_name, $expected, $exception)
+    public function testGetEnumFullName($namespace, $enum_name, $expected, $is_strict, $exception)
     {
         isset($exception) && $this->setExpectedException($exception);
         
-        $this->assertSame($expected, String::concat($namespace, $enum_name));
+        $this->assertSame($expected, String::concat($namespace, $enum_name, $is_strict));
     }
 }
